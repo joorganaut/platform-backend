@@ -7,6 +7,6 @@ const router = new Router({
 
 router.get('/:asset', getAssetList)
 router.get('/:role/:sso/:token', getAccessToken)
-router.get('/profile/:role/:sso/:token', getProfile)
+router.get('/profile/:role/:sso/:token/:userId', getProfile)
 
 export default router

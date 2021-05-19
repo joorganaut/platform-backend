@@ -2,17 +2,41 @@ import { Context } from 'koa'
 
 import * as linkedInService from '../../services/admin/linkedin.service'
 import * as slackService from '../../services/admin/slack.service'
+import * as facebookService from '../../services/admin/facebook.service'
 import * as fileService from '../../services/admin/file.service'
+
+
+const getAccessTokenBySSO = async (sso: string, token: string, role: string) => {
+    switch (sso) {
+        case 'linkedin':
+            return await linkedInService.getAccessToken(token, role)
+        case 'slack':
+            return await slackService.getAccessToken(token, role)
+        case 'facebook':
+            return await facebookService.getAccessToken(token, role)
+    }
+}
+
+const getProfileBySSO = async (sso: string, token: string, role: string, userId?: string) => {
+    switch (sso) {
+        case 'linkedin':
+            return await linkedInService.getProfile(token, role)
+        case 'slack':
+            return await slackService.getProfile(token, role)
+        case 'facebook':
+            return await facebookService.getProfile(userId as string, token, role)
+    }
+}
 
 export const getAccessToken = async (ctx: Context) => {
     const { token, sso, role } = ctx.params
-    const result = sso === 'linkedin' ? await linkedInService.getAccessToken(token, role) : await slackService.getAccessToken(token, role)
+    const result = await getAccessTokenBySSO(sso, token, role) as any
     ctx.body = result.data
 }
 
 export const getProfile = async (ctx: Context) => {
-    const { token, sso, role } = ctx.params
-    const result = sso === 'linkedin' ? await linkedInService.getProfile(token, role) : await slackService.getProfile(token, role)
+    const { token, sso, role, userId } = ctx.params
+    const result = await getProfileBySSO(sso, token, role, userId)
     ctx.body = result
 }
 

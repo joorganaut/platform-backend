@@ -16,11 +16,11 @@ export async function up(knex: Knex): Promise<any> {
 
         t.string('location')
         t.string('bio')
-        t.string('avatar')
+        t.string('avatar', 1000)
         t.string('title')
         t.string('industry')
         t.string('handler')
-        
+
         t.timestamp('created_at').defaultTo(knex.fn.now())
         t.timestamp('updated_at').defaultTo(knex.fn.now())
         t.timestamp('deleted_at').defaultTo(null)
