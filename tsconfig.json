@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "module": "CommonJS",
+    "target": "ES2018",
+    "strict": true,
+    "sourceMap": true,
+    "outDir": "./dist",
+    "experimentalDecorators": true,
+    "strictPropertyInitialization": false,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "types": ["node"],
+    "typeRoots": ["./node_modules/@types"],
+    "baseUrl": "src"
+  },
+  "exclude": ["node_modules", "**/__tests__", "**/__fixtures__", "__mocks__", "db", ".vscode", "scripts"],
+  "include": ["src/**/*"]
+}

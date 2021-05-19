@@ -1,0 +1,134 @@
+name: Deploy DEV
+
+on: push
+
+jobs:
+
+  start-deployment:
+    name: Start Deployment
+    runs-on: ubuntu-latest
+    outputs:
+      app_version: ${{ steps.calculate-app-version.outputs.app-version }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.3.3
+
+      - name: Calculate App Version
+        id: calculate-app-version
+        run: echo "::set-output name=app-version::${{ github.event.release.tag_name || '0.0.0' }}"
+
+  deploy:
+    name: Deploy API
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.3.2
+
+      - name: Configure AWS Credentials for build and deploy
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.DEV_AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.DEV_AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.DEV_AWS_DEFAULT_REGION }}
+
+      - name: Read secrets from AWS Secrets Manager into environment variables
+        uses: action-factory/aws-secrets-manager-action@v1.0.0
+        with:
+          aws-access-key-id: ${{ secrets.DEV_AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.DEV_AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.DEV_AWS_DEFAULT_REGION }}
+          secrets: |
+            DEV_ECR_ENDPOINT
+            DEV_ECR_SUFFIX
+
+      - name: Calculate ECR Image Address
+        run: echo "ECR_IMAGE_ADDRESS=${DEV_ECR_ENDPOINT}${DEV_ECR_SUFFIX}" >> $GITHUB_ENV
+
+      - name: Amazon ECR "Login" Action for GitHub Actions
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build & Deploy
+        working-directory: .
+        run: |
+            export API_EMAIL=$(aws secretsmanager get-secret-value --secret-id=API_EMAIL --output=text --query SecretString)
+            export API_KEY=$(aws secretsmanager get-secret-value --secret-id=API_KEY --output=text --query SecretString)
+            export API_PRIVATE_KEY=$(aws secretsmanager get-secret-value --secret-id=API_PRIVATE_KEY --output=text --query SecretString)
+            export API_PUBLIC_KEY=$(aws secretsmanager get-secret-value --secret-id=API_PUBLIC_KEY --output=text --query SecretString)
+            export API_SHORT_NAME=$(aws secretsmanager get-secret-value --secret-id=API_SHORT_NAME --output=text --query SecretString)
+            export API__AWS_ACCESS_KEY_ID=$(aws secretsmanager get-secret-value --secret-id=AWS_ACCESS_KEY_ID --output=text --query SecretString)
+            export API__AWS_REGION=$(aws secretsmanager get-secret-value --secret-id=AWS_REGION --output=text --query SecretString)
+            export API__AWS_SECRET_ACCESS_KEY=$(aws secretsmanager get-secret-value --secret-id=AWS_SECRET_ACCESS_KEY --output=text --query SecretString)
+            export AWS_BUCKET_NAME=$(aws secretsmanager get-secret-value --secret-id=AWS_BUCKET_NAME --output=text --query SecretString)
+            export CLIENT_INVITE_SOURCE_ADDRESS=$(aws secretsmanager get-secret-value --secret-id=CLIENT_INVITE_SOURCE_ADDRESS --output=text --query SecretString)
+            export DB_HOST=$(aws secretsmanager get-secret-value --secret-id=DB_HOST --output=text --query SecretString)
+            export DB_PORT=$(aws secretsmanager get-secret-value --secret-id=DB_PORT --output=text --query SecretString)
+            export DB_POSTGRES_DB=$(aws secretsmanager get-secret-value --secret-id=DB_POSTGRES_DB --output=text --query SecretString)
+            export DB_POSTGRES_PASSWORD=$(aws secretsmanager get-secret-value --secret-id=DB_POSTGRES_PASSWORD --output=text --query SecretString)
+            export DB_POSTGRES_USER=$(aws secretsmanager get-secret-value --secret-id=DB_POSTGRES_USER --output=text --query SecretString)
+            export LINKEDIN_BASE_AUTH_URL=$(aws secretsmanager get-secret-value --secret-id=LINKEDIN_BASE_AUTH_URL --output=text --query SecretString)
+            export LINKEDIN_BASE_URL=$(aws secretsmanager get-secret-value --secret-id=LINKEDIN_BASE_URL --output=text --query SecretString)
+            export LINKEDIN_CLIENT_ID=$(aws secretsmanager get-secret-value --secret-id=LINKEDIN_CLIENT_ID --output=text --query SecretString)
+            export LINKEDIN_CLIENT_SECRET=$(aws secretsmanager get-secret-value --secret-id=LINKEDIN_CLIENT_SECRET --output=text --query SecretString)
+            export LINKEDIN_REDIRECT_URL=$(aws secretsmanager get-secret-value --secret-id=LINKEDIN_REDIRECT_URL --output=text --query SecretString)
+            export NODE_PORT=$(aws secretsmanager get-secret-value --secret-id=NODE_PORT --output=text --query SecretString)
+            export REDIS_HOST=$(aws secretsmanager get-secret-value --secret-id=REDIS_HOST --output=text --query SecretString)
+            export REDIS_PASSWORD=$(aws secretsmanager get-secret-value --secret-id=REDIS_PASSWORD --output=text --query SecretString)
+            export REDIS_PORT=$(aws secretsmanager get-secret-value --secret-id=REDIS_PORT --output=text --query SecretString)
+            export SLACK_APP_ID=$(aws secretsmanager get-secret-value --secret-id=SLACK_APP_ID --output=text --query SecretString)
+            export SLACK_BASE_AUTH_URL=$(aws secretsmanager get-secret-value --secret-id=SLACK_BASE_AUTH_URL --output=text --query SecretString)
+            export SLACK_BASE_URL=$(aws secretsmanager get-secret-value --secret-id=SLACK_BASE_URL --output=text --query SecretString)
+            export SLACK_CLIENT_ID=$(aws secretsmanager get-secret-value --secret-id=SLACK_CLIENT_ID --output=text --query SecretString)
+            export SLACK_CLIENT_SECRET=$(aws secretsmanager get-secret-value --secret-id=SLACK_CLIENT_SECRET --output=text --query SecretString)
+            export SLACK_REDIRECT_URL=$(aws secretsmanager get-secret-value --secret-id=SLACK_REDIRECT_URL --output=text --query SecretString)
+            export SLACK_SIGNING_SECRET=$(aws secretsmanager get-secret-value --secret-id=SLACK_SIGNING_SECRET --output=text --query SecretString)
+            export UI_URL=$(aws secretsmanager get-secret-value --secret-id=UI_URL --output=text --query SecretString)
+            export useSSL=$(aws secretsmanager get-secret-value --secret-id=useSSL --output=text --query SecretString)
+            export NODE_ENV=$(aws secretsmanager get-secret-value --secret-id=NODE_ENV --output=text --query SecretString)
+            export NODE_ENV=$(aws secretsmanager get-secret-value --secret-id=NODE_ENV --output=text --query SecretString)
+            export PORT=$(aws secretsmanager get-secret-value --secret-id=PORT --output=text --query SecretString)
+
+            docker build \
+                -t ${ECR_IMAGE_ADDRESS}:latest \
+                --build-arg API_EMAIL=${API_EMAIL} \
+                --build-arg API_KEY=${API_KEY} \
+                --build-arg API_PRIVATE_KEY="${API_PRIVATE_KEY}" \
+                --build-arg API_PUBLIC_KEY="${API_PUBLIC_KEY}" \
+                --build-arg API_SHORT_NAME=${API_SHORT_NAME} \
+                --build-arg AWS_ACCESS_KEY_ID=${API__AWS_ACCESS_KEY_ID} \
+                --build-arg AWS_REGION=${API__AWS_REGION} \
+                --build-arg AWS_SECRET_ACCESS_KEY=${API__AWS_SECRET_ACCESS_KEY} \
+                --build-arg AWS_BUCKET_NAME=${AWS_BUCKET_NAME} \
+                --build-arg CLIENT_INVITE_SOURCE_ADDRESS=${CLIENT_INVITE_SOURCE_ADDRESS} \
+                --build-arg DB_HOST=${DB_HOST} \
+                --build-arg DB_PORT=${DB_PORT} \
+                --build-arg DB_POSTGRES_DB=${DB_POSTGRES_DB} \
+                --build-arg DB_POSTGRES_PASSWORD=${DB_POSTGRES_PASSWORD} \
+                --build-arg DB_POSTGRES_USER=${DB_POSTGRES_USER} \
+                --build-arg LINKEDIN_BASE_AUTH_URL=${LINKEDIN_BASE_AUTH_URL} \
+                --build-arg LINKEDIN_BASE_URL=${LINKEDIN_BASE_URL} \
+                --build-arg LINKEDIN_CLIENT_ID=${LINKEDIN_CLIENT_ID} \
+                --build-arg LINKEDIN_CLIENT_SECRET=${LINKEDIN_CLIENT_SECRET} \
+                --build-arg LINKEDIN_REDIRECT_URL=${LINKEDIN_REDIRECT_URL} \
+                --build-arg NODE_PORT=${NODE_PORT} \
+                --build-arg REDIS_HOST=${REDIS_HOST} \
+                --build-arg REDIS_PASSWORD=${REDIS_PASSWORD} \
+                --build-arg REDIS_PORT=${REDIS_PORT} \
+                --build-arg SLACK_APP_ID=${SLACK_APP_ID} \
+                --build-arg SLACK_BASE_AUTH_URL=${SLACK_BASE_AUTH_URL} \
+                --build-arg SLACK_BASE_URL=${SLACK_BASE_URL} \
+                --build-arg SLACK_CLIENT_ID=${SLACK_CLIENT_ID} \
+                --build-arg SLACK_CLIENT_SECRET=${SLACK_CLIENT_SECRET} \
+                --build-arg SLACK_REDIRECT_URL=${SLACK_REDIRECT_URL} \
+                --build-arg SLACK_SIGNING_SECRET=${SLACK_SIGNING_SECRET} \
+                --build-arg UI_URL=${UI_URL} \
+                --build-arg useSSL=${useSSL} \
+                --build-arg NODE_ENV=${NODE_ENV} \
+                --build-arg PORT=${PORT} \
+                .
+
+      - name: Publish Image
+        run: docker push --all-tags ${ECR_IMAGE_ADDRESS}
+
+      - name: Update Service (api)
+        run: aws ecs update-service --cluster backend --service backend --force-new-deployment > /dev/null
+

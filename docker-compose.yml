@@ -1,0 +1,59 @@
+version: '3.7'
+
+services:
+  # api:
+  #   image: "291951987435.dkr.ecr.us-east-1.amazonaws.com/bptn-dev:latest"
+  #   build: "."
+  #   restart: "always"
+  #   container_name: "api"
+  #   env_file: ".env"
+  #   ports:
+  #       - "5000:5000"
+  #       - "9229:9229"
+  #   depends_on:
+  #     - "db"
+  #     - "redis"
+
+  finance-db:
+    image: 'postgres'
+    restart: 'always'
+    container_name: 'finance-db'
+    env_file: '.env'
+    ports:
+      - '5434:5432'
+
+  finance-redis:
+    image: 'redis:4-alpine'
+    restart: 'always'
+    env_file: '.env'
+    container_name: 'finance-redis'
+    ports:
+      - '6789:6789'
+    depends_on:
+      - finance-db
+    networks:
+      - overlay
+  # api:
+  #   image: bptn_api
+  #   build:
+  #     context: .
+  #     dockerfile: ./Dockerfile
+  #   # environment:
+  #   #   NODE_ENV: production
+  #   #   NODE_PORT: 4000
+  #   #   DB_HOST: bptn_db
+  #   #   DB_POSTGRES_USER: bptn
+  #   #   DB_POSTGRES_PASSWORD: bptn
+  #   #   DB_POSTGRES_DB: bptn
+  #   #   DB_PORT: 5432
+  #   ports:
+  #     - 3000:4000
+  #   depends_on:
+  #     - db
+  #   depends_on:
+  #       - redis
+  #   networks:
+  #     - overlay
+networks:
+  overlay:
+    driver: 'bridge'

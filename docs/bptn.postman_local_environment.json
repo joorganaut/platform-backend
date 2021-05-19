@@ -1,0 +1,109 @@
+{
+	"id": "2a27751c-e4bd-438f-b254-e801e9440561",
+	"name": "Local Environment",
+	"values": [
+		{
+			"key": "baseurl",
+			"value": "http://localhost:4000/v1",
+			"enabled": true
+		},
+		{
+			"key": "userId",
+			"value": "b15913fb-ce62-4eaf-8905-29cd01a49f88",
+			"enabled": true
+		},
+		{
+			"key": "partnerId",
+			"value": "e2a51a13-3390-48ce-85e9-50856601a7e0",
+			"enabled": true
+		},
+		{
+			"key": "contentId",
+			"value": "d74efd15-6fd6-4d46-b820-f29f0453747d",
+			"enabled": true
+		},
+		{
+			"key": "partnerContentId",
+			"value": "412c7eb7-749c-431d-9e80-119ad9f98b3c",
+			"enabled": true
+		},
+		{
+			"key": "profileId",
+			"value": "d2d3846f-9355-4bd8-919a-18d4d68afdd5",
+			"enabled": true
+		},
+		{
+			"key": "userContentId",
+			"value": "c740d1da-13da-4e58-83be-6c915fbc882b",
+			"enabled": true
+		},
+		{
+			"key": "partnerUserId",
+			"value": "7d2f3272-f421-40f4-8e7a-cf0b9d9cc2ad",
+			"enabled": true
+		},
+		{
+			"key": "eventId",
+			"value": "9d5abf4f-919d-4abd-9505-d49d3b3bd917",
+			"enabled": true
+		},
+		{
+			"key": "partnerEventId",
+			"value": "bd2b90af-4a66-4980-9392-c3d9276fd308",
+			"enabled": true
+		},
+		{
+			"key": "x-api-key",
+			"value": "wkafxNXsmNrgFpV97S7arxWnUGVRdskF.s7a8UZ7FZuPFuwda",
+			"enabled": true
+		},
+		{
+			"key": "eventAttendeeId",
+			"value": "358a7432-6201-477c-b554-0671593a6dc8",
+			"enabled": true
+		},
+		{
+			"key": "preferenceId",
+			"value": "3cfcaceb-426c-4a37-9999-09ec2a322e68",
+			"enabled": true
+		},
+		{
+			"key": "contentActivityId",
+			"value": "066f601a-4be3-4158-b665-7a06cce05ea1",
+			"enabled": true
+		},
+		{
+			"key": "commentId",
+			"value": "3a3e0957-4cca-4d92-bcce-27cc266a8a35",
+			"enabled": true
+		},
+		{
+			"key": "reactionId",
+			"value": "5f5a58ae-2def-4919-be32-42e69021622f",
+			"enabled": true
+		},
+		{
+			"key": "commentContentId",
+			"value": "734673a6-6c48-470c-aaf8-5375bae4a197",
+			"enabled": true
+		},
+		{
+			"key": "req_body",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "username",
+			"value": "bp@wakanda.com",
+			"enabled": true
+		},
+		{
+			"key": "password",
+			"value": "BigShot",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2021-05-13T20:36:07.420Z",
+	"_postman_exported_using": "Postman/8.3.0"
+}

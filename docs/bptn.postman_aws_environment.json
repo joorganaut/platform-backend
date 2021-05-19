@@ -1,0 +1,109 @@
+{
+	"id": "d8cf7407-e0fb-4775-b27e-9223edcc8f76",
+	"name": "AWS Environment",
+	"values": [
+		{
+			"key": "baseurl",
+			"value": "https://api-dev.bptn.ca/v1",
+			"enabled": true
+		},
+		{
+			"key": "x-api-key",
+			"value": "wkafxNXsmNrgFpV97S7arxWnUGVRdskF.s7a8UZ7FZuPFuwda",
+			"enabled": true
+		},
+		{
+			"key": "userId",
+			"value": "0000a57d-4206-425a-8760-e9c771c964c0",
+			"enabled": true
+		},
+		{
+			"key": "req_body",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "username",
+			"value": "aa@test.com",
+			"enabled": true
+		},
+		{
+			"key": "password",
+			"value": "password",
+			"enabled": true
+		},
+		{
+			"key": "profileId",
+			"value": "431a5431-0cd8-4799-952f-01f9ad116a09",
+			"enabled": true
+		},
+		{
+			"key": "preferenceId",
+			"value": "7f458319-f808-46f4-b54e-c6e209463be2",
+			"enabled": true
+		},
+		{
+			"key": "contentId",
+			"value": "555-555-5555",
+			"enabled": true
+		},
+		{
+			"key": "partnerId",
+			"value": "a79b4ebb-de06-41d1-8bf4-f1320e2fa96c",
+			"enabled": true
+		},
+		{
+			"key": "eventId",
+			"value": "b24d5bb0-171d-4c03-abd3-3d5a95ecc7cd",
+			"enabled": true
+		},
+		{
+			"key": "eventAttendeeId",
+			"value": "68ba0c18-6770-4cc0-8b44-d9e115ca09c8",
+			"enabled": true
+		},
+		{
+			"key": "partnerUserId",
+			"value": "fee81c2b-01af-4954-9f0a-812980308079",
+			"enabled": true
+		},
+		{
+			"key": "partnerEventId",
+			"value": "a3e93aec-f124-4b90-8691-dde50214a985",
+			"enabled": true
+		},
+		{
+			"key": "userContentId",
+			"value": "555-555-5555",
+			"enabled": true
+		},
+		{
+			"key": "partnerContentId",
+			"value": "555-555-5555",
+			"enabled": true
+		},
+		{
+			"key": "commentId",
+			"value": "555-555-5555",
+			"enabled": true
+		},
+		{
+			"key": "reactionId",
+			"value": "555-555-5555",
+			"enabled": true
+		},
+		{
+			"key": "commentContentId",
+			"value": "555-555-5555",
+			"enabled": true
+		},
+		{
+			"key": "contentActivityId",
+			"value": "555-555-5555",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2021-05-13T20:36:26.020Z",
+	"_postman_exported_using": "Postman/8.3.0"
+}
