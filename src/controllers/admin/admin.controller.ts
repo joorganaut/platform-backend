@@ -3,7 +3,9 @@ import { Context } from 'koa'
 import * as linkedInService from '../../services/admin/linkedin.service'
 import * as slackService from '../../services/admin/slack.service'
 import * as facebookService from '../../services/admin/facebook.service'
+import * as googleService from '../../services/admin/google.service'
 import * as fileService from '../../services/admin/file.service'
+import { User } from 'types'
 
 
 const getAccessTokenBySSO = async (sso: string, token: string, role: string) => {
@@ -37,6 +39,11 @@ export const getAccessToken = async (ctx: Context) => {
 export const getProfile = async (ctx: Context) => {
     const { token, sso, role, userId } = ctx.params
     const result = await getProfileBySSO(sso, token, role, userId)
+    ctx.body = result
+}
+
+export const getGoogleProfile = async (ctx: Context) => {
+    const result = await googleService.getProfile(ctx.request.body as User)
     ctx.body = result
 }
 

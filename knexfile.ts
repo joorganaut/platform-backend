@@ -15,8 +15,8 @@ const base = {
     }
 }
 
-const dbUrl = `postgresql://${process.env.DB_POSTGRES_USER}:${process.env.DB_POSTGRES_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_POSTGRES_DB}`
-const dbTestUrl = `postgresql://${process.env.DB_POSTGRES_USER}:${process.env.DB_POSTGRES_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_POSTGRES_DB_TEST}`
+const dbUrl = `postgresql://${process.env.POSTGRES_USER}:${process.env.POSTGRES_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.POSTGRES_DB}`
+const dbTestUrl = `postgresql://${process.env.POSTGRES_USER}:${process.env.POSTGRES_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.POSTGRES_DB_TEST}`
 // console.log(dbUrl)
 interface Config {
     client: string

@@ -20,7 +20,7 @@ services:
     container_name: 'finance-db'
     env_file: '.env'
     ports:
-      - '5434:5432'
+      - '5435:5432'
 
   finance-redis:
     image: 'redis:4-alpine'
