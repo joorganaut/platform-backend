@@ -20,7 +20,7 @@ export const getAccessToken = async (code: string, role: string) => {
     return response
 }
 
-export const getProfile = async (userId: string, accessToken: string, role: string) => {
+export const getProfile = async (accessToken: string, institutionCode: string) => {
     if (!accessToken) {
         throw new BadRequestError(__filename, `Invalid access token`)
     }
@@ -32,10 +32,11 @@ export const getProfile = async (userId: string, accessToken: string, role: stri
     const firstName = response?.data?.first_name
     const lastName = response?.data?.last_name
     const user: User = {
+        institutionCode: institutionCode,
         username: response?.data?.email,
         firstName: firstName,
         lastName: lastName,
-        role: role,
+        role: 'admin',
         enabled: true,
         isOnBoarded: false,
         image: picture ? picture : '',
@@ -47,6 +48,7 @@ export const getProfile = async (userId: string, accessToken: string, role: stri
         accessToken: accessToken
     }
     const profile: Profile = {
+        institutionCode: institutionCode,
         avatar: picture ? picture : '',
         location: '',
         bio: '',

@@ -18,7 +18,7 @@ export const getAccessToken = async (code: string, role: string) => {
     return response
 }
 
-export const getProfile = async (accessToken: string, role: string) => {
+export const getProfile = async (accessToken: string, institutionCode: string) => {
     const profileMethod = '/me'
     const emailMethod = '/emailAddress?q=members&projection=(elements*(handle~))'
     const imageMethod = '/me?projection=(id,profilePicture(displayImage~:playableStreams))'
@@ -31,10 +31,11 @@ export const getProfile = async (accessToken: string, role: string) => {
     const image_response = await axios.get(image_url, { headers: { "Authorization": `Bearer ${accessToken}` } })
     const picture = image_response?.data?.profilePicture
     const user: User = {
+        institutionCode: institutionCode,
         username: email_response?.data?.elements[0]['handle~']?.emailAddress,
         firstName: response?.data?.localizedFirstName,
         lastName: response?.data?.localizedLastName,
-        role: role,
+        role: 'admin',
         enabled: true,
         isOnBoarded: false,
         image: picture ? image_response?.data?.profilePicture['displayImage~']?.elements[3]?.identifiers[0]?.identifier : '',
@@ -43,9 +44,11 @@ export const getProfile = async (accessToken: string, role: string) => {
         welcomed: false,
         ssoType: 'linkedin',
         verificationLink: '',
-        accessToken: accessToken
+        accessToken: accessToken,
+        signoutRequested: false
     }
     const profile: Profile = {
+        institutionCode: institutionCode,
         avatar: picture ? image_response?.data?.profilePicture['displayImage~']?.elements[3]?.identifiers[0]?.identifier : '',
         location: '',
         bio: '',

@@ -12,7 +12,9 @@
         "ossp",
         "pgdata",
         "postgres",
-        "postgresql"
+        "postgresql",
+        "requested",
+        "signout"
     ],
     "cSpell.words": [
         "Fven",
@@ -21,6 +23,7 @@
         "HGET",
         "HSET",
         "Nkvv",
+        "Transactable",
         "Zxwdnu",
         "openpgp",
         "prettierrc",

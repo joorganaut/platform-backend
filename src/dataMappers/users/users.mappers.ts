@@ -20,7 +20,8 @@ export const mapUserFromUserEntity = (entity: UserEntity): User => {
         onboardingQuestions: entity.onboarding_questions as QuestionAnswer[],
         verificationLink: entity.verification_link,
         ssoType: entity.sso_type,
-        accessToken: entity.access_token
+        accessToken: entity.access_token,
+        signoutRequested: entity.signout_requested
     }
 
 }
@@ -42,7 +43,8 @@ export const mapUserEntityFromUser = (user: User): UserEntity => {
         onboarding_questions: JSON.stringify(user.onboardingQuestions),
         verification_link: user.verificationLink,
         sso_type: user.ssoType,
-        access_token: user.accessToken
+        access_token: user.accessToken,
+        signout_requested: user.signoutRequested
     }
 
 }

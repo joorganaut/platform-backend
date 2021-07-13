@@ -1,4 +1,4 @@
-import { Preference, PreferenceEntity } from 'types'
+import { Preference, PreferenceEntity } from '../../types'
 import * as preferencesRepository from '../../repositories/users/preferences.repository'
 import { mapPreferenceFromPreferenceEntity, mapPreferenceEntityFromPreference } from '../../dataMappers/users/preferences.mappers'
 import { NotFoundError } from "../../lib"

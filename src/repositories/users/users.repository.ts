@@ -22,13 +22,14 @@ const columns = [
     'sso_type',
     'verification_link',
     'onboarding_questions',
-    'access_token'
+    'access_token',
+    'signout_requested'
 ]
 
 export const fetchUsers = async (params?: PagingParams): Promise<UserEntity[] | any> => {
     if (params) {
         const offSet = ((params.page as number < 1 ? 1 : params.page) - 1) * params.pageSize
-        const [count] = await db<UserEntity>(TABLE_NAME).count('id')
+        const [count] = await db<UserEntity>(TABLE_NAME).count('id').whereNull('deleted_at')
         params.totalCount = count['count'] as number
         const result = await db<UserEntity>(TABLE_NAME).whereNull('deleted_at').offset(offSet).limit(params.pageSize).select(columns).orderBy(params.sort, params.dir)
         params.data = result

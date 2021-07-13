@@ -20,5 +20,8 @@ export const MimeTypes: MimeType[] = [
     { fileType: 'xls', mime: 'application/vnd.ms-excel' },
     { fileType: 'xlsx', mime: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' },
     { fileType: 'doc', mime: 'application/msword' },
-    { fileType: 'docx', mime: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' }
+    { fileType: 'docx', mime: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' },
+    { fileType: 'mp4', mime: 'video/mp4' },
+    { fileType: 'webm', mime: 'video/webm' },
+    { fileType: 'mov', mime: 'video/mov' }
 ]

@@ -1,11 +1,11 @@
 import { Context } from 'koa'
 
-import { PagingParams, User } from 'types'
+import { PagingParams, User } from '../../types'
 import * as userService from '../../services/users/users.service'
 
 export const getAllUsers = async (ctx: Context) => {
     const query = ctx.query as any
-    const params: PagingParams = { page: query.page, pageSize: query.pageSize, dir: query.dir, sort: query.sort }
+    const params: PagingParams | undefined = query.page !== undefined ? { page: query.page, pageSize: query.pageSize, dir: query.dir, sort: query.sort } : undefined
     const result: User[] | any = await userService.fetchUsers(params)
     ctx.body = result
 }

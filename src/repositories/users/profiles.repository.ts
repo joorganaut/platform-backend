@@ -20,7 +20,7 @@ const columns = [
 
 export const fetchProfiles = async (): Promise<ProfileEntity[]> => await db<ProfileEntity>(TABLE_NAME).whereNull('deleted_at').select(columns)
 
-export const fetchProfileById = async (userId: string, profileId: string): Promise<ProfileEntity> => await db<ProfileEntity>(TABLE_NAME).whereNull('deleted_at').where({'id': profileId, 'user_id': userId}).first(columns)
+export const fetchProfileById = async (profileId: string): Promise<ProfileEntity> => await db<ProfileEntity>(TABLE_NAME).whereNull('deleted_at').where({ 'id': profileId}).first(columns)
 
 export const fetchProfileByUserId = async (userId: string): Promise<ProfileEntity> => await db<ProfileEntity>(TABLE_NAME).whereNull('deleted_at').where('user_id', userId).first(columns)
 

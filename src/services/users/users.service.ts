@@ -4,9 +4,7 @@ import { mapUserFromUserEntity, mapUserEntityFromUser } from '../../dataMappers/
 import { BadRequestError, NotFoundError, UnauthorizedError } from "../../lib"
 import * as RedisService from '../../services/admin/redis.service'
 import { Md5 } from 'ts-md5/dist/md5'
-import { createProfile, findProfileByUserId } from "./profiles.service"
-import { createPartner } from "../partners/partners.service"
-import { createPartnerUser, findPartnerUserByUserId } from "../partners/partnerUsers.service"
+import { createProfile, findProfileByUserId, updateProfile } from "./profiles.service"
 import { getEmailTemplate, sendEmail } from '../admin/email.service'
 import { getJwtTokenFromValue } from '../admin/security.service'
 import { QuestionAnswer } from "../../types/users/questions.types"
@@ -57,6 +55,7 @@ export const createUser = async (user: User, profile?: Profile): Promise<User> =
     userEntity.password = user.password && user.password !== '' ? Md5.hashStr(user.password) as string : ''
 
     const newProfile: Profile = profile ? profile : {
+        institutionCode: user.institutionCode,
         avatar: '',
         location: '',
         bio: '',
@@ -70,37 +69,17 @@ export const createUser = async (user: User, profile?: Profile): Promise<User> =
     const oldProfile = await findProfileByUserId(db_response.id as string)
     const new_Profile = oldProfile ? oldProfile : await createProfile(newProfile)
 
-
-    if (db_response.role === "Partner") {
-        const newPartner: Partner = {
-            name: '',
-            description: '',
-            enabled: true,
-            founded: '',
-            companySize: ''
-        }
-
-        const new_Partner = await createPartner(newPartner)
-
-        const newPartnerUser: PartnerUser = {
-            partnerId: new_Partner.id as string,
-            userId: '',
-        }
-        newPartnerUser.userId = db_response.id as string
-        if (!await findPartnerUserByUserId(db_response.id as string)) {
-            await createPartnerUser(newPartnerUser)
-        }
-    }
-
     const response = mapUserFromUserEntity(db_response)
     await RedisService.create("users", response)
-    const welcomeTemplate = await getEmailTemplate(user, 'welcome')
-    await sendEmail([user.username, 'product@bptn.ca'], "Welcome to Campus-X", welcomeTemplate.replace('{link}', process.env.UI_URL as string))
+
+    //TODO uncomment welcome email when ready
+    // const welcomeTemplate = await getEmailTemplate(user, 'welcome')
+    // await sendEmail([user.username, 'product@bptn.ca'], "Welcome to Obsidi", welcomeTemplate.replace('{link}', process.env.UI_URL as string))
     if (user.authType === 'creds') {
         const cipher = await getJwtTokenFromValue(JSON.stringify({ id: response.id, firstName: response.firstName, lastName: response.lastName }))
         const templateBuffer = await getEmailTemplate(user, 'emailVerification')
         const template = templateBuffer.replace('{link}', process.env.UI_URL + 'verification/' + cipher)
-        await sendEmail([user.username, 'product@bptn.ca'], "Please verify your email", template)
+        await sendEmail([user.username], "Name: Confirm Your Registration", template)
     }
     return { ...response, profile: new_Profile }
 }
@@ -122,6 +101,7 @@ export const loginUser = async (username: string, password: string): Promise<Use
     }
 
     const userEntity = mapUserEntityFromUser(existingUser)
+    userEntity.signout_requested = false
     const [db_response] = await usersRepository.updateUser(existingUser.id as string, userEntity)
     // db_response.password = ''
     const response = mapUserFromUserEntity(db_response)
@@ -141,7 +121,7 @@ export const resetPassword = async (email: string): Promise<User> => {
     const cipher = await getJwtTokenFromValue(JSON.stringify({ id: existingUser.id, firstName: existingUser.firstName, lastName: existingUser.lastName }))
     const templateBuffer = await getEmailTemplate(existingUser, 'passwordReset')
     const template = templateBuffer.replace('{link}', process.env.UI_URL + 'password-reset/' + cipher)
-    await sendEmail([existingUser.username, 'product@bptn.ca'], "Please reset your Password", template)
+    await sendEmail([existingUser.username], "Please reset your Password", template)
     return existingUser
 }
 
@@ -168,6 +148,7 @@ export const changePassword = async (userId: string, password: string): Promise<
     const passwordHash = Md5.hashStr(password)
 
     existingUser.password = passwordHash as string
+    existingUser.signoutRequested = true
     const [user] = await usersRepository.updateUser(userId, mapUserEntityFromUser(existingUser))
 
     return mapUserFromUserEntity(user)
@@ -225,6 +206,30 @@ export const updateOnboardingQuestions = async (userId: string, answers: Questio
         const filePath = await handleFileUpload(file)
         resume.answer = filePath
         answers[answers.indexOf(resume)] = resume
+    }
+
+    const avatar = answers?.find(answer => answer.question.includes('avatar'))
+    if (avatar && avatar.answer && avatar.answer.includes('type')) {
+        const fileDetails = JSON.parse(avatar.answer)
+        const file: UploadFile = {
+            name: `avatar`,
+            type: fileDetails.type,
+            file: fileDetails.file,
+            fileUrl: '',
+            fileType: fileDetails.type,
+            folder: `uploads/${userId}/media/profile`
+        }
+        const filePath = await handleFileUpload(file)
+        avatar.answer = filePath
+        answers[answers.indexOf(avatar)] = avatar
+
+        const editedProfile = await findProfileByUserId(userId)
+        if (!editedProfile) {
+            throw new NotFoundError(__filename, `Profile with User ID ${userId} can't be found`)
+        }
+        editedProfile.avatar = answers[answers.indexOf(avatar)].answer
+        await updateProfile(userId, editedProfile)
+        user.image = answers[answers.indexOf(avatar)].answer
     }
     const existingUser = mapUserFromUserEntity(user)
     existingUser.onboardingQuestions = answers

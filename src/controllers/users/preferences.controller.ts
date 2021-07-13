@@ -1,6 +1,6 @@
 import { Context } from 'koa'
 
-import { Preference } from 'types'
+import { Preference } from '../../types'
 import * as preferenceService from '../../services/users/preferences.service'
 
 export const getAllPreferences = async (ctx: Context) => {

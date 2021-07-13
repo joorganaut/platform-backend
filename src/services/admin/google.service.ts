@@ -15,7 +15,8 @@ export const getProfile = async (user: User) => {
         title: '',
         industry: '',
         userId: '',
-        handler: ''
+        handler: '',
+        institutionCode: ''
     }
 
     const newUser = await createUser(user, profile)

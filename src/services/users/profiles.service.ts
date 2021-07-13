@@ -1,4 +1,4 @@
-import { Profile, ProfileEntity } from 'types'
+import { Profile, ProfileEntity } from '../../types'
 import * as profilesRepository from '../../repositories/users/profiles.repository'
 import { mapProfileFromProfileEntity, mapProfileEntityFromProfile } from '../../dataMappers/users/profiles.mappers'
 import { NotFoundError } from '../../lib'
@@ -9,8 +9,8 @@ export const fetchProfiles = async (): Promise<Profile[]> => {
     return profiles.map(profile => mapProfileFromProfileEntity(profile))
 }
 
-export const fetchProfileById = async (userId: string, profileId: string): Promise<Profile> => {
-    const profile: ProfileEntity = await profilesRepository.fetchProfileById(userId, profileId)
+export const fetchProfileById = async (profileId: string): Promise<Profile> => {
+    const profile: ProfileEntity = await profilesRepository.fetchProfileById(profileId)
 
     if (!profile) {
         throw new NotFoundError(__filename, `Profile ID ${profileId} does not exist`)

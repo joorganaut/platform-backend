@@ -8,38 +8,49 @@
 </head>
 
 <body>
-    <div style="margin: 2em;background-color: #333333;padding: 2em; width: auto; height: auto">
-        <div
-            style="position: relative;display: flex; flex-direction: row; padding-left: 2em;background: #555555;color: white">
-            <div style="font-family:Arial; margin: 1em;">
-                <img style="width: 100%" src="{frontend}assets/email/Main-Image.png" alt="hero" />
-                <h2 style=" font-weight: bold">You've Been Invited</h2>
-                <p style="text-align: justify">{firstName} just invited you to CampusX! Congratulations! To make the
-                    most of our features, please sign-up and fill in your personal information then validate your
-                    profile details.</p>
-                <a style="text-decoration: none; color: unset" href="{link}">
-                    <span style="
-                    display: flex;
-            flex-direction: row;
-            align-items: center;
-                padding: 1em 2em;
-                width: 10em;
+    <div style="padding: 0.3em; margin: 1em;background-color: #030303; width: auto; height: auto">
+        <div style="padding: 1em; width: auto;display: flex; flex-direction: row;background: #555555;color: white; justify-content: center; align-items: center;">
+            <div style="text-align: start; font-family:Arial; margin: 1em;">
+                <img style="display: block; margin-left: auto; margin-right: auto;" src="./assets/Logo-Header.svg" alt="Logo-Header" />
+                <div style="position: relative;
+                width: 100%;">
+                    <div style="
+                    z-index: 1;">
+                <img style="display: block; margin-left: auto; margin-right: auto;" src="./assets/email_hero_image.png" alt="Obsidi-Mobile" />
+                    </div>
+                </div>
+                <h1 style=" font-weight: bold">You've Been Invited</h1>
+                <p style="text-align: justify">{firstName}, wants you to join them on Obsidi by BPTN, a community of Black tech professionals.</p>
+                <br />
+                <div style="line-height: 50%;">
+                    <p>As a member of Obsidi, you can:</p>
+                    <p>- Expand your network</p>
+                    <p>- Find career growth opportunities</p>
+                    <p>- Meet your next hire</p>
+                    <p>- Find or become a mentor</p>
+                    <p>- Attend exclusive events</p>
+                </div>
+                <div style="text-align: left;margin:2em 0; width: 100%;"><a
+                        style="text-decoration: none; color: unset" href="{link}">
+                        <span style="
+                align-items: center;
+                padding: 0.75em 1em;
+                width: auto;
+                max-width: 250px;
                 height: auto;
                 justify-content: center;
                 font-weight: bold;
-                color: #333333;
                 text-decoration: none; 
-                color: unset;
+                color: #292929;
                 background-color: #BB86FC;
                 border: 1px solid #BB86FC;
-                border-radius: 4px;">SIGN UP</span>
-                </a>
+                border-radius: 4px;">JOIN NOW</span>
+                    </a></div>
                 <br />
-                <p>The CampusX team remains at your disposal.</p>
-                <p>The Campus-X Team</p>
-                <p>signature</p>
-
-                <p style="font-weight: bold">Campus-<span style="font-size: 1em;color: #BB86FC">X</span> </p>
+                <div style="text-align: start;">
+                    <p>The Obsidi Team</p>
+                    <p>Lekan Olawoye</p>
+                </div>
             </div>
         </div>
     </div>

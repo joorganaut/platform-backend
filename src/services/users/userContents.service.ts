@@ -1,4 +1,4 @@
-import { UserContent, UserContentEntity } from 'types'
+import { UserContent, UserContentEntity } from '../../types'
 import * as userContentsRepository from '../../repositories/users/userContents.repository'
 import { mapUserContentFromUserContentEntity, mapUserContentEntityFromUserContent } from '../../dataMappers/users/userContents.mappers'
 import { NotFoundError } from '../../lib'
