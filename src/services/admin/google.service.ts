@@ -1,4 +1,3 @@
-import axios from 'axios'
 import { User, Profile } from '../../types'
 
 import { createUser } from '../users/users.service'
