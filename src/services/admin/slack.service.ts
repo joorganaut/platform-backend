@@ -20,7 +20,7 @@ export const getAccessToken = async (code: string, role: string) => {
     return response
 }
 
-export const getProfile = async (accessToken: string, role: string) => {
+export const getProfile = async (accessToken: string, institutionCode: string) => {
     if (!accessToken) {
         throw new BadRequestError(__filename, `Invalid access token`)
     }
@@ -31,10 +31,11 @@ export const getProfile = async (accessToken: string, role: string) => {
     const firstName = response?.data?.user?.name?.split(' ')[0]
     const lastName = response?.data?.user?.name?.split(' ')[1]
     const user: User = {
+        institutionCode: institutionCode,
         username: response?.data?.user?.email,
         firstName: firstName,
         lastName: lastName,
-        role: role,
+        role: 'admin',
         enabled: true,
         isOnBoarded: false,
         image: picture ? picture : '',
@@ -43,9 +44,11 @@ export const getProfile = async (accessToken: string, role: string) => {
         welcomed: false,
         ssoType: 'slack',
         verificationLink: '',
-        accessToken: accessToken
+        accessToken: accessToken,
+        signoutRequested: false
     }
     const profile: Profile = {
+        institutionCode: institutionCode,
         avatar: picture ? picture : '',
         location: '',
         bio: '',

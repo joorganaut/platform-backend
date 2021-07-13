@@ -7,6 +7,7 @@ export const mapApplicationMetaDataFromApplicationMetaDataEntity = (entity: Appl
         id: entity.id,
         name: entity.name,
         value: entity.value as any[],
+        type: entity.type,
         enabled: entity.enabled,
         expiryDate: entity.expiry_date
     }
@@ -18,6 +19,7 @@ export const mapApplicationMetaDataEntityFromApplicationMetaData = (applicationM
     return {
         name: applicationMetaData.name,
         value: JSON.stringify(applicationMetaData.value),
+        type: applicationMetaData.type,
         enabled: applicationMetaData.enabled,
         expiry_date: applicationMetaData.expiryDate
     }

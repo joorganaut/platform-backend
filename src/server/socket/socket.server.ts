@@ -1,6 +1,5 @@
 import * as http from 'http'
 import { Server, Socket } from 'socket.io'
-import { Content } from 'types'
 import * as RedisService from '../../services/admin/redis.service'
 import * as logger from '../../utils/logger'
 
@@ -49,7 +48,13 @@ const notifyUser = (io: Server, socket: Socket, params: NotifyParams) => {
 
 export const socketServer = async (server: http.Server) => {
 
-    const io = new Server(server)
+    const io = new Server(server, {
+        // cors: {
+        //     origin: "*",
+        //     methods: ["GET", "POST"]
+        // }
+    })
+
     io.on("connection", async (socket: Socket) => {
 
         socket.on("username", async (user: UserParams) => {
@@ -62,6 +67,10 @@ export const socketServer = async (server: http.Server) => {
 
             await RedisService.create("logins", { ...user, id: user.username })
             io.emit("online", users)
+        })
+
+        socket.on("logoutAll", async (user: UserParams) => {
+            io.emit(`logout_${user.username}`, true)
         })
 
         socket.on("chat", async (chat: ChatParams) => {

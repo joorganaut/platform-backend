@@ -20,7 +20,16 @@ export interface User extends BusinessObject {
     ssoType: string
     verificationLink: string
     accessToken: string
+    signoutRequested?: boolean
+    transactionPin: string,
+    isAuthenticated: boolean,
+    forcePasswordChange: boolean,
+    lastLoginDate: Date,
+    numberOfFailedAttempts: number,
 }
+
+
+
 
 
 export interface UserEntity extends Entity {
@@ -40,4 +49,62 @@ export interface UserEntity extends Entity {
     sso_type: string
     verification_link: string
     access_token: string
+    signout_requested?: boolean
+    transaction_pin: string,
+    is_authenticated: boolean,
+    force_password_change: boolean,
+    last_login_date: Date,
+    number_of_failed_attempts: number
+}
+
+export interface Role extends BusinessObject {
+    name: string
+    IsTransactable: boolean,
+    TransactionAmount: number
+}
+
+export interface RoleEntity extends Entity {
+    name: string
+    is_transactable: boolean,
+    transaction_amount: number
+}
+
+export interface UserFunction {
+    id: string
+    name: string
+    action: string
+    isEnabled: boolean
+}
+
+export interface UserFunctionEntity extends Entity {
+    id: string
+    name: string
+    action: string
+    is_enabled: boolean
+}
+
+export interface UserRole extends BusinessObject {
+    userId: string
+    roleId: string
+    roleName: string
+
+    isAdmin: boolean,
+    username: string
+}
+export interface UserRoleEntity extends Entity {
+    user_id: string
+    role_id: string
+    role_name: string
+}
+
+export interface RoleFunction extends BusinessObject {
+    roleId: string
+    functionId: string
+    functionName: string
+}
+
+export interface RoleFunctionEntity extends Entity {
+    role_id: string
+    function_id: string
+    function_name: string
 }

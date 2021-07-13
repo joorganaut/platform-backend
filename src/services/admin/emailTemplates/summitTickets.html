@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <title>Page Title</title>
+    <style>
+    </style>
+</head>
+
+<body>
+    <div style="padding: 0.3em; margin: 1em;background-color: #030303; width: auto; height: auto">
+        <div style="padding: 1em; width: auto;display: flex; flex-direction: row;background: #555555;color: white">
+            <div style="text-align: start; font-family:Arial; margin: 1em;">
+
+                <h2 style=" font-weight: bold">Hello {firstName}, Thanks for registering for {eventDetails}!</h2>
+                <p style="text-align: justify">Please find your ticket details below:</p>
+                <div style="text-align: center;margin:2em 0; width: 100%;">
+                    <!--Add ticket details here-->
+                    <table style="border: 1px solid white;">
+                        <thead>
+                            <th style="border: 1px solid white;" id="sn">S/N</th>
+                            <th style="border: 1px solid white;" id="sn">Ticket Details</th>
+                            <th style="border: 1px solid white;" id="sn">Claim Code</th>
+                        </thead>
+                        {ticketDetails}
+                        <tfoot>
+                            <th style="border: 1px solid white;" id="sn">**</th>
+                            <th style="border: 1px solid white;" id="sn">****** ********</th>
+                            <th style="border: 1px solid white;" id="sn">***** ****</th>
+                        </tfoot>
+                    </table>
+                </div>
+                <br />
+                <p style="text-align: justify">We can't wait to see you (virtually) for two days of learning from industry leaders,
+                     networking with other Black professionalsand opportunities to level up in your career.</p>
+                <p style="text-align: justify">You're going to BFUTR 2021! Get ready to connect with 20,000+ tech and business professionals, 
+                    learn from industry leaders, expand your network and level up in your career.</p>
+                <div style="position: relative;
+                width: 100%;">
+                    <div style="
+                     
+                    z-index: 1;">
+                        <img style="width: 100%; display: block; " src="./assets/hero_image.png" alt="hero" />
+                    </div>
+                </div>
+                <div style="text-align: start;">
+                <div style="text-align: start;">
+                    <p style="text-align: justify">__</p>
+                    <p><i>Please do not reply to this email, this address is not monitored</i></p>
+                    <br />
+                    <p>Need Support? We got you, connect with us at <a style="text-decoration: none;color: #BB86FC;" href="mailto:summitsupport@bptn.ca">summitsupport@bptn.ca</a></p>
+                    <p>The Obsidi Team</p>
+                    <p>Lekan Olawoye</p>
+                    <p style="font-weight: bold"><span style="font-size: 1em;color: #BB86FC">Obsidi</span> </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

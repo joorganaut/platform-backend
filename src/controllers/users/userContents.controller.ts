@@ -1,6 +1,6 @@
 import { Context } from 'koa'
 
-import { UserContent } from 'types'
+import { UserContent } from '../../types'
 import * as userContentService from '../../services/users/userContents.service'
 
 export const getAllUserContents = async (ctx: Context) => {

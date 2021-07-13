@@ -15,6 +15,10 @@ import PreferenceRouter from './users/preferences.router'
 import PartnerEventRouter from './partners/partnerEvents.router'
 import EventAttendeeRouter from './events/eventAttendees.router'
 import ContentActivityRouter from './contents/contentActivity.router'
+import ApplicationMetaDataRouter from './admin/application.metadata.router'
+import OnboardingQuestionRouter from './admin/onboarding.question.router'
+import MessageRouter from './messages/messages.router'
+import TicketRouter from './events/tickets.router'
 import { authMiddleware } from '../middleware'
 
 
@@ -73,6 +77,14 @@ router
     .use(EventAttendeeRouter.allowedMethods())
     .use(ContentActivityRouter.routes())
     .use(ContentActivityRouter.allowedMethods())
+    .use(ApplicationMetaDataRouter.routes())
+    .use(ApplicationMetaDataRouter.allowedMethods())
+    .use(OnboardingQuestionRouter.routes())
+    .use(OnboardingQuestionRouter.allowedMethods())
+    .use(MessageRouter.routes())
+    .use(MessageRouter.allowedMethods())
+    .use(TicketRouter.routes())
+    .use(TicketRouter.allowedMethods())
 
 
 export default router

@@ -7,14 +7,18 @@ const columns = [
     'id',
     'name',
     'value',
+    'type',
     'enabled',
-    'expiry_date'
+    'expiry_date',
+    'created_at',
+    'updated_at',
+    'deleted_at'
 ]
 
 export const fetchAllApplicationMetaData = async (params?: PagingParams): Promise<ApplicationMetaDataEntity[] | any> => {
     if (params) {
         const offSet = ((params.page < 1 ? 1 : params.page) - 1) * params.pageSize
-        const [count] = await db<ApplicationMetaDataEntity>(TABLE_NAME).count('id')
+        const [count] = await db<ApplicationMetaDataEntity>(TABLE_NAME).count('id').whereNull('deleted_at')
         params.totalCount = count['count'] as number
         const result = await db<ApplicationMetaDataEntity>(TABLE_NAME).whereNull('deleted_at').offset(offSet).limit(params.pageSize).select(columns).orderBy(params.sort, params.dir)
         params.data = result
@@ -29,11 +33,11 @@ export const fetchApplicationMetaDataByName = async (name: string): Promise<Appl
 
 export const createApplicationMetaData = async (applicationMetaData: ApplicationMetaDataEntity): Promise<ApplicationMetaDataEntity[]> => await db<ApplicationMetaDataEntity>(TABLE_NAME).insert({ ...applicationMetaData, updated_at: db.raw('now()'), created_at: db.raw('now()') }, columns)
 
-export const updateUser = async (applicationMetaDataId: string, applicationMetaData: ApplicationMetaDataEntity): Promise<ApplicationMetaDataEntity[]> => await db<ApplicationMetaDataEntity>(TABLE_NAME)
+export const updateApplicationMetaData = async (applicationMetaDataId: string, applicationMetaData: ApplicationMetaDataEntity): Promise<ApplicationMetaDataEntity[]> => await db<ApplicationMetaDataEntity>(TABLE_NAME)
     .where('id', applicationMetaDataId)
     .whereNull('deleted_at')
     .update({ ...applicationMetaData, updated_at: db.raw('now()') }, columns)
 
-export const deleteUser = async (applicationMetaDataId: string): Promise<ApplicationMetaDataEntity[]> => await db<ApplicationMetaDataEntity>(TABLE_NAME)
+export const deleteApplicationMetaData = async (applicationMetaDataId: string): Promise<ApplicationMetaDataEntity[]> => await db<ApplicationMetaDataEntity>(TABLE_NAME)
     .where('id', applicationMetaDataId)
     .update({ updated_at: db.raw('now()'), deleted_at: db.raw('now()') }, columns)

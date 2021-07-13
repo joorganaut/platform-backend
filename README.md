@@ -1,6 +1,6 @@
 # API Service
 
-The api layer that handles all backend functions. This service runs the main backend for the [UI project](https://github.com/bptn/campus-x).
+The api layer that handles all backend functions. This service runs the main backend for the [UI project](https://github.com/fin-sazee/platform-backend).
 
 ## Dependencies
 
