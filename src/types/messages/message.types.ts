@@ -11,10 +11,10 @@ export interface Message extends BusinessObject {
     title: string
     senderId: string
     receiverId: string
-    status: string
+    type: string
+    status: MessageStatus
     error: string
     content: any[]
-
 }
 
 export interface MessageEntity extends Entity {
@@ -22,8 +22,8 @@ export interface MessageEntity extends Entity {
     title: string
     sender_id: string
     receiver_id: string
-    status: string
+    type: string
+    status: MessageStatus
     error: string
     content: string | any[]
-
 }
