@@ -180,7 +180,8 @@ export const mapUserFromUserEntity = (entity: UserEntity): User => {
         forcePasswordChange: entity.force_password_change,
         lastLoginDate: entity.last_login_date,
         numberOfFailedAttempts: entity.number_of_failed_attempts,
-        institutionCode: entity.institution_code
+        institutionCode: entity.institution_code,
+        forcePinChange: entity.force_pin_change
     }
 
 }
@@ -209,7 +210,7 @@ export const mapUserEntityFromUser = (user: User): UserEntity => {
         force_password_change: user.forcePasswordChange,
         last_login_date: user.lastLoginDate,
         number_of_failed_attempts: user.numberOfFailedAttempts,
-
+        force_pin_change: user.forcePinChange,
         institution_code: user.institutionCode
     }
 

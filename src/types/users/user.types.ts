@@ -24,6 +24,7 @@ export interface User extends BusinessObject {
     transactionPin: string,
     isAuthenticated: boolean,
     forcePasswordChange: boolean,
+    forcePinChange: boolean,
     lastLoginDate: Date,
     numberOfFailedAttempts: number,
 }
@@ -53,8 +54,10 @@ export interface UserEntity extends Entity {
     transaction_pin: string,
     is_authenticated: boolean,
     force_password_change: boolean,
+    force_pin_change: boolean,
     last_login_date: Date,
     number_of_failed_attempts: number
+
 }
 
 export interface Role extends BusinessObject {

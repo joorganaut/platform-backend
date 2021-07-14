@@ -21,7 +21,7 @@ export interface Invoice extends BusinessObject {
     contact: string
     status: InvoiceStatus
     description: string
-    totalAmount: string
+    totalAmount: number
     hasTax: boolean
     taxContent: InvoiceContent[]
     content: InvoiceContent[]
@@ -36,11 +36,11 @@ export interface InvoiceEntity extends Entity {
     contact: string
     status: InvoiceStatus
     description: string
-    total_amount: string
+    total_amount: number
     has_tax: boolean
     tax_content: InvoiceContent[] | string
     content: InvoiceContent[] | string
-    client: string
+    client: string //client name
     expiryDate?: Date
     is_recurring: boolean
     interval?: any
