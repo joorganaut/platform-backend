@@ -18,7 +18,7 @@ export interface Transaction extends BusinessObject {
     type: TransactionType,
 }
 
-export interface Transaction extends Entity {
+export interface TransactionEntity extends Entity {
     account: string,
     amount: number,
     narration: string,

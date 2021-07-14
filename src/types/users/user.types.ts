@@ -77,7 +77,6 @@ export interface UserFunction {
 }
 
 export interface UserFunctionEntity extends Entity {
-    id: string
     name: string
     action: string
     is_enabled: boolean
@@ -95,6 +94,8 @@ export interface UserRoleEntity extends Entity {
     user_id: string
     role_id: string
     role_name: string
+    is_admin: boolean,
+    username: string
 }
 
 export interface RoleFunction extends BusinessObject {

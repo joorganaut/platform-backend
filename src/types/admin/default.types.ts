@@ -5,7 +5,7 @@ export interface Entity {
     created_at?: string | Raw
     deleted_at?: string | Raw
     updated_at?: string | Raw
-    institutionCode?: string
+    institution_code?: string
 }
 
 export interface BusinessObject {

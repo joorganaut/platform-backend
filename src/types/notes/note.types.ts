@@ -1,4 +1,4 @@
-import { BusinessObject } from "../../types/admin/default.types"
+import { BusinessObject, Entity } from "../../types/admin/default.types"
 
 export enum NoteType {
     meeting,
@@ -22,7 +22,7 @@ export interface Note extends BusinessObject {
     interval: any
 }
 
-export interface Note extends BusinessObject {
+export interface NoteEntity extends Entity {
     name: string
     type: NoteType
     status: NoteStatus
