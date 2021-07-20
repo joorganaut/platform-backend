@@ -11,7 +11,7 @@ export interface InvoiceEntity extends Entity {
     tax_content: InvoiceContent[] | string
     content: InvoiceContent[] | string
     client: string
-    expiryDate?: Date
+    expiry_date?: Date
     is_recurring: boolean
     interval?: any
 }
@@ -35,7 +35,7 @@ export async function up(knex: Knex): Promise<any> {
         t.jsonb('tax_content')
         t.jsonb('content')
         t.string('client')
-        t.dateTime('expiryDate').nullable()
+        t.dateTime('expiry_date').nullable()
         t.boolean('is_recurring')
         t.integer('interval').nullable()
 

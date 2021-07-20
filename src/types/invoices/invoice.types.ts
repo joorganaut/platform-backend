@@ -41,7 +41,7 @@ export interface InvoiceEntity extends Entity {
     tax_content: InvoiceContent[] | string
     content: InvoiceContent[] | string
     client: string //client name
-    expiryDate?: Date
+    expiry_date?: Date
     is_recurring: boolean
     interval?: any
 }

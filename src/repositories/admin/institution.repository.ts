@@ -10,7 +10,11 @@ const columns = [
     'background_color',
     'website',
     'email',
-    'id'
+    'id',
+    'phone',
+    'industry',
+    'pass_phrase',
+    'address'
 ]
 
 export const fetchInstitutions = async (params?: PagingParams): Promise<InstitutionEntity[] | any> => {

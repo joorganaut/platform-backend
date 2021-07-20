@@ -5,9 +5,12 @@ const TABLE_NAME = 'messages'
 
 const columns = [
     'id',
+    'title',
     'sender_id',
     'receiver_id',
+    'type',
     'status',
+    'error',
     'content',
     'deleted_at',
     'created_at',
@@ -30,5 +33,5 @@ export const deleteMessage = async (messageId: string): Promise<MessageEntity[]>
     .update({ updated_at: db.raw('now()'), deleted_at: db.raw('now()') }, columns)
 
 export const deleteAllMessageBySenderAndReceiver = async (senderId: string, receiverId: string): Promise<MessageEntity[]> => await db<MessageEntity>(TABLE_NAME)
-    .where({'sender_id': senderId, 'receiver_id': receiverId})
+    .where({ 'sender_id': senderId, 'receiver_id': receiverId })
     .update({ updated_at: db.raw('now()'), deleted_at: db.raw('now()') }, columns)
