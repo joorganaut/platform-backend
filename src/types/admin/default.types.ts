@@ -23,27 +23,27 @@ export interface PagingParams {
 }
 
 export interface Institution extends BusinessObject {
-    name: string
-    logo: string
-    color: string
-    backgroundColor: string
-    website: string
-    email: string
-    phone: string
-    industry: string
-    passPhrase: string
-    address: string
+    name?: string
+    logo?: string
+    color?: string
+    backgroundColor?: string
+    website?: string
+    email?: string
+    phone?: string
+    industry?: string
+    passPhrase?: string
+    address?: string
 }
 
 export interface InstitutionEntity extends Entity {
-    name: string
-    logo: string
-    color: string
-    background_color: string
-    website: string
-    email: string
-    phone: string
-    industry: string
-    pass_phrase: string
-    address: string
+    name?: string
+    logo?: string
+    color?: string
+    background_color?: string
+    website?: string
+    email?: string
+    phone?: string
+    industry?: string
+    pass_phrase?: string
+    address?: string
 }

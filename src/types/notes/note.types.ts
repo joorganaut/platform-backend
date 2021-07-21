@@ -3,7 +3,8 @@ import { BusinessObject, Entity } from "../../types/admin/default.types"
 export enum NoteType {
     meeting,
     reminder,
-    event
+    event,
+    task
 }
 
 export enum NoteStatus {
