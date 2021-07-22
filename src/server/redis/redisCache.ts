@@ -1,6 +1,5 @@
 import { User, UserContent } from 'types'
 import { fetchUsers } from '../../services/users/users.service'
-import { fetchContents } from '../../services/contents/contents.service'
 import * as RedisService from '../../services/admin/redis.service'
 import { GenerateKeys } from '../../services/admin/security.service'
 

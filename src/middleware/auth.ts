@@ -23,6 +23,7 @@ export const authMiddleware = async (ctx: Context, next: Next) => {
     }
 
     const jwt = getJWT(ctx.headers.authorization as string)
+    const { institutionCode } = ctx.headers
     const usesApiKey = checkApiKey(ctx.headers['x-api-key'] as string)
 
     if (!jwt && !usesApiKey) {
@@ -37,7 +38,7 @@ export const authMiddleware = async (ctx: Context, next: Next) => {
         try {
             logger.info(ctx.URL.pathname, __filename)
             const tokenPayload = getValueFromJwt(jwt) as any
-            const user = await findUserById(tokenPayload.id)
+            const user = await findUserById(tokenPayload.id, institutionCode as string)
             if (!user) {
                 throw new UnauthorizedError(__filename, 'Unable to retrieve user')
             }

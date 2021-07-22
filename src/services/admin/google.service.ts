@@ -5,21 +5,11 @@ import * as clientServer from '../../server/socket/socket.client.server'
 
 
 
-export const getProfile = async (user: User) => {
+export const getProfile = async (institutionCode: string, user: User) => {
 
     const picture = user.image
-    const profile: Profile = {
-        avatar: picture as string,
-        location: '',
-        bio: '',
-        title: '',
-        industry: '',
-        userId: '',
-        handler: '',
-        institutionCode: ''
-    }
 
-    const newUser = await createUser(user, profile)
+    const newUser = await createUser(institutionCode, user)
 
     clientServer.set('onlineUser', { id: newUser.id })
 

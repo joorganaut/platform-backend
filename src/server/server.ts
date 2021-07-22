@@ -7,7 +7,7 @@ import { BPTNError } from '../lib'
 import * as RedisCache from './redis/redisCache'
 import * as SocketServer from '../server/socket/socket.server'
 import * as DataPreload from '../middleware/data.preload'
-import cron from 'node-cron'
+// import cron from 'node-cron'
 
 function normalizePort(val: string) {
     const port = parseInt(val, 10)
@@ -23,9 +23,9 @@ function normalizePort(val: string) {
 const PORT = normalizePort(process.env.PORT || '5000')
 const server = http.createServer(app.callback())
 
-cron.schedule('* * * * *', () => {
-    logger.info('cron job', __filename)
-})
+// cron.schedule('* * * * *', () => {
+//     logger.info('cron job', __filename)
+// })
 
 server.on('error', (e) => {
     logger.error(new BPTNError(__filename, e.message, e), __filename)

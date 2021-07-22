@@ -45,20 +45,18 @@ export const getProfile = async (accessToken: string, institutionCode: string) =
         welcomed: false,
         ssoType: 'slack',
         verificationLink: '',
-        accessToken: accessToken
-    }
-    const profile: Profile = {
-        institutionCode: institutionCode,
-        avatar: picture ? picture : '',
-        location: '',
-        bio: '',
-        title: '',
-        industry: '',
-        userId: '',
-        handler: ''
+        accessToken: accessToken,
+        lastLoginDate: new Date(),
+        signoutRequested: false,
+        transactionPin: '',
+        isAuthenticated: true,
+        forcePasswordChange: false,
+        forcePinChange: true,
+        numberOfFailedAttempts: 0
     }
 
-    const newUser = await createUser(user, profile)
+
+    const newUser = await createUser(institutionCode, user)
 
     return { ...user, ...newUser }
 }

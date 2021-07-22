@@ -45,7 +45,8 @@ export const getProfile = async (ctx: Context) => {
 }
 
 export const getGoogleProfile = async (ctx: Context) => {
-    const result = await googleService.getProfile(ctx.request.body as User)
+    const { institutionCode } = ctx.headers
+    const result = await googleService.getProfile(institutionCode as string, ctx.request.body as User)
     ctx.body = result
 }
 

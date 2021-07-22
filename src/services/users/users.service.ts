@@ -30,7 +30,7 @@ export const findUserById = async (userId: string, institutionCode: string): Pro
 }
 
 export const findUserByEmail = async (email: string, institutionCode: string): Promise<User | null> => {
-    const user = await usersRepository.fetchUserByEmail(email, institutionCode)
+    const user = await usersRepository.fetchUserByEmail(email, institutionCode || '')
     if (!user) {
         return null
     }
@@ -38,7 +38,7 @@ export const findUserByEmail = async (email: string, institutionCode: string): P
     return response
 }
 
-export const createUser = async (institutionCode: string, user: User, profile?: Profile): Promise<any> => {
+export const createUser = async (institutionCode: string, user: User): Promise<any> => {
     const existingUser = await findUserByEmail(user.username, institutionCode)
     if (existingUser && existingUser.authType.includes('sso')) {
         return existingUser
@@ -47,7 +47,7 @@ export const createUser = async (institutionCode: string, user: User, profile?: 
     }
 
     //if institutionCode blank create new institution
-    let institution = await institutionRepository.fetchInstitutionById(institutionCode)
+    let institution = institutionCode ? await institutionRepository.fetchInstitutionById(institutionCode) : undefined
     if (!institution) {
         //create new institution
         [institution] = await institutionRepository.createInstitution({})

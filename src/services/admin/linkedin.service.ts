@@ -45,20 +45,16 @@ export const getProfile = async (accessToken: string, institutionCode: string) =
         ssoType: 'linkedin',
         verificationLink: '',
         accessToken: accessToken,
-        signoutRequested: false
-    }
-    const profile: Profile = {
-        institutionCode: institutionCode,
-        avatar: picture ? image_response?.data?.profilePicture['displayImage~']?.elements[3]?.identifiers[0]?.identifier : '',
-        location: '',
-        bio: '',
-        title: '',
-        industry: '',
-        userId: '',
-        handler: ''
+        signoutRequested: false,
+        lastLoginDate: new Date(),
+        transactionPin: '',
+        isAuthenticated: true,
+        forcePasswordChange: false,
+        forcePinChange: true,
+        numberOfFailedAttempts: 0
     }
 
-    const newUser = await createUser(user, profile)
+    const newUser = await createUser(institutionCode, user)
 
     clientServer.set('onlineUser', { id: newUser.id })
 

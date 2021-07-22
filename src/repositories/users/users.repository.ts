@@ -15,7 +15,6 @@ const columns = [
     'role',
     'is_onboarded',
     'image',
-    'welcomed',
     'onboarding_questions',
     'sso_type',
     'verification_link',
@@ -43,7 +42,15 @@ export const fetchUsers = async (institutionCode: string, params?: PagingParams)
 
 export const fetchUserById = async (userId: string, institutionCode: string): Promise<UserEntity> => await db<UserEntity>(TABLE_NAME).whereNull('deleted_at').where('id', userId).where('institution_code', institutionCode).first(columns)
 
-export const fetchUserByEmail = async (email: string, institutionCode: string): Promise<UserEntity> => await db<UserEntity>(TABLE_NAME).whereNull('deleted_at').where('username', email).where('institution_code', institutionCode).first(columns)
+export const fetchUserByEmail = async (email: string, institutionCode: string): Promise<UserEntity> => {
+    if (institutionCode) {
+        return await db<UserEntity>(TABLE_NAME).whereNull('deleted_at').where('username', email)
+            .where('institution_code', institutionCode).first(columns)
+    }
+    return await db<UserEntity>(TABLE_NAME).whereNull('deleted_at').where('username', email)
+        .first(columns)
+}
+
 
 export const createUser = async (user: UserEntity): Promise<UserEntity[]> => await db<UserEntity>(TABLE_NAME).insert({ ...user, updated_at: db.raw('now()'), created_at: db.raw('now()') }, columns)
 

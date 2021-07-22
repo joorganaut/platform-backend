@@ -3,7 +3,9 @@ import { Entity, BusinessObject } from "../admin/default.types"
 export enum MessageStatus {
     sent,
     pending,
-    failed
+    failed,
+    unread,
+    read
 }
 
 export interface Message extends BusinessObject {

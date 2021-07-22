@@ -15,7 +15,6 @@ export interface User extends BusinessObject {
     isOnBoarded: boolean
     image?: string
     profile?: Profile
-    welcomed: boolean
     onboardingQuestions?: QuestionAnswer[]
     ssoType: string
     verificationLink: string
@@ -45,7 +44,6 @@ export interface UserEntity extends Entity {
     role: string
     is_onboarded: boolean
     image?: string
-    welcomed: boolean
     onboarding_questions?: string | QuestionAnswer[]
     sso_type: string
     verification_link: string
