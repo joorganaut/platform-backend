@@ -26,6 +26,7 @@ export async function up(knex: Knex): Promise<any> {
             .primary()
             .unique()
             .defaultTo(knex.raw('uuid_generate_v4()'))
+        t.uuid('account').references('id').inTable('accounts').notNullable()
         t.uuid('project').references('id').inTable('projects').nullable()
         t.uuid('contact').references('id').inTable('contacts').notNullable()
         t.integer('status')

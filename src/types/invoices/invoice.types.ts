@@ -19,6 +19,7 @@ export interface InvoiceContent {
 export interface Invoice extends BusinessObject {
     project?: string
     contact: string
+    account: string
     status: InvoiceStatus
     description: string
     totalAmount: number
@@ -34,6 +35,7 @@ export interface Invoice extends BusinessObject {
 export interface InvoiceEntity extends Entity {
     project?: string
     contact: string
+    account: string
     status: InvoiceStatus
     description: string
     total_amount: number

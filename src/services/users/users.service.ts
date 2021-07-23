@@ -66,7 +66,7 @@ export const createUser = async (institutionCode: string, user: User): Promise<a
 
     const response = mapUserFromUserEntity(db_response)
 
-    //TODO uncomment welcome email when ready
+    //TODO: uncomment welcome email when ready
     // const welcomeTemplate = await getEmailTemplate(user, 'welcome')
     // await sendEmail([user.username, 'product@bptn.ca'], "Welcome to Obsidi", welcomeTemplate.replace('{link}', process.env.UI_URL as string))
     if (user.authType === 'creds') {

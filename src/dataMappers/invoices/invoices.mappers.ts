@@ -45,10 +45,10 @@ export const mapInvoiceFromInvoiceEntity = (entity: InvoiceEntity): Invoice => {
         taxContent: entity.tax_content as InvoiceContent[],
         content: entity.content as InvoiceContent[],
         client: entity.client,
-        expiryDate: entity.expiryDate,
+        expiryDate: entity.expiry_date,
         isRecurring: entity.is_recurring,
         interval: entity.interval,
-
+        account: entity.account,
         institutionCode: entity.institution_code
     }
 }
@@ -65,10 +65,10 @@ export const mapInvoiceEntityFromInvoice = (invoice: Invoice): InvoiceEntity => 
         tax_content: JSON.stringify(invoice.taxContent),
         content: JSON.stringify(invoice.content),
         client: invoice.client,
-        expiryDate: invoice.expiryDate,
+        expiry_date: invoice.expiryDate,
         is_recurring: invoice.isRecurring,
         interval: invoice.interval,
-
+        account: invoice.account,
         institution_code: invoice.institutionCode
     }
 }

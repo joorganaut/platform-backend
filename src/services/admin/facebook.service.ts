@@ -42,7 +42,6 @@ export const getProfile = async (accessToken: string, institutionCode: string) =
         image: picture ? picture : '',
         authType: 'sso',
         cognitoId: '',
-        welcomed: false,
         ssoType: 'slack',
         verificationLink: '',
         accessToken: accessToken,
