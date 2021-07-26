@@ -20,7 +20,7 @@ export const getAccessToken = async (code: string, role: string) => {
     return response
 }
 
-export const getProfile = async (accessToken: string, institutionCode: string) => {
+export const getProfile2 = async (accessToken: string, institutionCode: string) => {
     if (!accessToken) {
         throw new BadRequestError(__filename, `Invalid access token`)
     }
@@ -56,6 +56,15 @@ export const getProfile = async (accessToken: string, institutionCode: string) =
 
 
     const newUser = await createUser(institutionCode, user)
+
+    return { ...user, ...newUser }
+}
+
+
+export const getProfile = async (institutionCode: string, user: User) => {
+    const newUser = await createUser(institutionCode, user)
+
+    // clientServer.set('onlineUser', { id: newUser.id })
 
     return { ...user, ...newUser }
 }

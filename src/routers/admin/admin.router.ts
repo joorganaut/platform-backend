@@ -7,7 +7,7 @@ const router = new Router({
 
 router.get('/:asset', getAssetList)
 router.get('/:role/:sso/:token', getAccessToken)
-router.get('/profile/:role/:sso/:token', getProfile)
+router.post('/profile/:role/:sso/:token', getProfile)
 router.get('/payment/amount/:amount/currency/:currency', getPayment)
 router.get('/date/today', getTodaysDate)
 router.post('/login/google', getGoogleProfile)

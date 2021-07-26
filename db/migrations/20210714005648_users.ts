@@ -53,10 +53,10 @@ export async function up(knex: Knex): Promise<any> {
 
         t.string('role')
         t.boolean('is_onboarded')
-        t.string('image').nullable()
+        t.string('image', 2000).nullable()
         t.string('sso_type')
         t.string('verification_link')
-        t.string('access_token')
+        t.string('access_token', 1000)
         t.boolean('signout_requested').nullable()
         t.string('transaction_pin')
         t.boolean('is_authenticated')

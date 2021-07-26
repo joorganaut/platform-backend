@@ -20,14 +20,14 @@ const getAccessTokenBySSO = async (sso: string, token: string, role: string) => 
     }
 }
 
-const getProfileBySSO = async (sso: string, token: string, institutionCode: string, userId?: string) => {
+const getProfileBySSO = async (sso: string, token: string, institutionCode: string, user: User) => {
     switch (sso) {
         case 'linkedin':
             return await linkedInService.getProfile(token, institutionCode)
         case 'slack':
             return await slackService.getProfile(token, institutionCode)
         case 'facebook':
-            return await facebookService.getProfile(token, institutionCode)
+            return await facebookService.getProfile(institutionCode, user)
     }
 }
 
@@ -38,9 +38,9 @@ export const getAccessToken = async (ctx: Context) => {
 }
 
 export const getProfile = async (ctx: Context) => {
-    const { token, sso, role, userId } = ctx.params
+    const { token, sso, role } = ctx.params
     const { institutionCode } = ctx.headers
-    const result = await getProfileBySSO(sso, token, institutionCode as string, userId)
+    const result = await getProfileBySSO(sso, token, institutionCode as string, ctx.request.body as User)
     ctx.body = result
 }
 
