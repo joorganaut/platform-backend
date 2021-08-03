@@ -14,6 +14,7 @@ const columns = [
     'enabled',
     'role',
     'is_onboarded',
+    'institution_code',
     'image',
     'onboarding_questions',
     'sso_type',
@@ -40,7 +41,9 @@ export const fetchUsers = async (institutionCode: string, params?: PagingParams)
     return await db<UserEntity>(TABLE_NAME).whereNull('deleted_at').where('institution_code', institutionCode).select(columns)
 }
 
-export const fetchUserById = async (userId: string, institutionCode: string): Promise<UserEntity> => await db<UserEntity>(TABLE_NAME).whereNull('deleted_at').where('id', userId).where('institution_code', institutionCode).first(columns)
+export const fetchUserByIdWithInstitutionCode = async (userId: string, institutionCode: string): Promise<UserEntity> => await db<UserEntity>(TABLE_NAME).whereNull('deleted_at').where('id', userId).where('institution_code', institutionCode).first(columns)
+
+export const fetchUserById = async (userId: string): Promise<UserEntity> => await db<UserEntity>(TABLE_NAME).whereNull('deleted_at').where('id', userId).first(columns)
 
 export const fetchUserByEmail = async (email: string, institutionCode: string): Promise<UserEntity> => {
     if (institutionCode) {

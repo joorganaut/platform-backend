@@ -17,9 +17,21 @@ export const fetchUsers = async (institutionCode: string, params?: PagingParams)
     return { ...result, data: result?.data?.map((user: UserEntity) => mapUserFromUserEntity(user)) }
 }
 
-export const findUserById = async (userId: string, institutionCode: string): Promise<User> => {
+export const findUserById = async (userId: string): Promise<User> => {
 
-    const user: UserEntity = await usersRepository.fetchUserById(userId, institutionCode)
+    const user: UserEntity = await usersRepository.fetchUserById(userId)
+
+    if (!user) {
+        throw new NotFoundError(__filename, `User ID ${userId} does not exist`)
+    }
+
+    const response = mapUserFromUserEntity(user)
+    return response
+}
+
+export const findUserByIdWithInstitutionCode = async (userId: string, institutionCode: string): Promise<User> => {
+
+    const user: UserEntity = await usersRepository.fetchUserByIdWithInstitutionCode(userId, institutionCode)
 
     if (!user) {
         throw new NotFoundError(__filename, `User ID ${userId} does not exist`)
@@ -41,7 +53,9 @@ export const findUserByEmail = async (email: string, institutionCode: string): P
 export const createUser = async (institutionCode: string, user: User): Promise<any> => {
     const existingUser = await findUserByEmail(user.username, institutionCode)
     if (existingUser && existingUser.authType.includes('sso')) {
-        return existingUser
+        const existingInstitution = await institutionRepository.fetchInstitutionById(existingUser?.institutionCode as string)
+
+        return { data: existingUser, institution: existingInstitution }
     } else if (existingUser && existingUser.authType === 'creds') {
         throw new BadRequestError(__filename, `User with email ${user.username} already exists`)
     }
@@ -117,8 +131,8 @@ export const resetPassword = async (email: string, institutionCode: string): Pro
     return existingUser
 }
 
-export const invite = async (id: string, emails: string[], institutionCode: string): Promise<User> => {
-    const existingUser = await findUserById(id, institutionCode)
+export const invite = async (id: string, emails: string[], institutionCode?: string): Promise<User> => {
+    const existingUser = institutionCode ? await findUserByIdWithInstitutionCode(id, institutionCode) : await findUserById(id)
     if (!existingUser) {
         throw new NotFoundError(__filename, `User with id ${id} does not exist`)
     }
@@ -130,7 +144,7 @@ export const invite = async (id: string, emails: string[], institutionCode: stri
 }
 
 export const changePassword = async (userId: string, password: string, institutionCode: string): Promise<User> => {
-    const existingUser = await findUserById(userId, institutionCode)
+    const existingUser = institutionCode ? await findUserByIdWithInstitutionCode(userId, institutionCode) : await findUserById(userId)
     if (!existingUser) {
         throw new NotFoundError(__filename, `User does not exist`)
     }

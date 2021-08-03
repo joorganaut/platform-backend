@@ -7,6 +7,7 @@ import * as linkedInService from '../../services/admin/linkedin.service'
 import * as slackService from '../../services/admin/slack.service'
 import * as fileService from '../../services/admin/file.service'
 import * as paymentService from '../../services/admin/payment.service'
+import * as institutionService from '../../services/admin/institution.service'
 import { User } from '../../types'
 
 const getAccessTokenBySSO = async (sso: string, token: string, role: string) => {
@@ -65,4 +66,10 @@ export const getPayment = async (ctx: Context) => {
 export const getTodaysDate = async (ctx: Context) => {
     const date = moment().format()
     ctx.body = date
+}
+
+export const getInstitution = async (ctx: Context) => {
+    const { institutionCode } = ctx.params
+    const result = await institutionService.findInstitutionById(institutionCode as string)
+    return result
 }

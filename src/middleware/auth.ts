@@ -2,7 +2,7 @@ import { Context, Next } from 'koa'
 import { UnauthorizedError } from '../lib/errors'
 import * as logger from '../utils/logger'
 import { getValueFromJwt } from '../services/admin/security.service'
-import { findUserById } from '../services/users/users.service'
+import { findUserById, findUserByIdWithInstitutionCode } from '../services/users/users.service'
 
 
 const getJWT = (authorization: string): string | null => {
@@ -23,7 +23,7 @@ export const authMiddleware = async (ctx: Context, next: Next) => {
     }
 
     const jwt = getJWT(ctx.headers.authorization as string)
-    const { institutionCode } = ctx.headers
+    const institutionCode = ctx.headers['institutionCode']
     const usesApiKey = checkApiKey(ctx.headers['x-api-key'] as string)
 
     if (!jwt && !usesApiKey) {
@@ -38,7 +38,8 @@ export const authMiddleware = async (ctx: Context, next: Next) => {
         try {
             logger.info(ctx.URL.pathname, __filename)
             const tokenPayload = getValueFromJwt(jwt) as any
-            const user = await findUserById(tokenPayload.id, institutionCode as string)
+            const user = institutionCode ? await findUserByIdWithInstitutionCode(tokenPayload.id, institutionCode as string) : await findUserById(tokenPayload.id)
+
             if (!user) {
                 throw new UnauthorizedError(__filename, 'Unable to retrieve user')
             }
