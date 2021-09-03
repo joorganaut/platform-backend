@@ -26,6 +26,7 @@ export interface User extends BusinessObject {
     forcePinChange: boolean,
     lastLoginDate: Date,
     numberOfFailedAttempts: number,
+    welcomed?: boolean
 }
 
 

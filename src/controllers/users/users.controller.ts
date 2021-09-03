@@ -14,7 +14,7 @@ export const getAllUsers = async (ctx: Context) => {
 export const getUser = async (ctx: Context) => {
     const { userId } = ctx.params
     const { institutionCode } = ctx.headers
-    const user: User = await userService.findUserById(userId, institutionCode as string)
+    const user: User = await userService.findUserById(userId)
     ctx.body = user
 }
 

@@ -26,7 +26,12 @@ export const mapContactFromContactEntity = (entity: ContactEntity): Contact => {
         email: entity.email,
         phone: entity.phone,
         address: entity.address,
-
+        workPhone: entity.work_phone,
+        title: entity.title,
+        shortName: entity.short_name,
+        type: entity.type,
+        taxType: entity.tax_type,
+        currency: entity.currency,
         name: entity.name,
         institutionCode: entity.institution_code
     }
@@ -39,7 +44,12 @@ export const mapContactEntityFromContact = (contact: Contact): ContactEntity => 
         email: contact.email,
         phone: contact.phone,
         address: contact.address,
-
+        work_phone: contact.workPhone,
+        title: contact.title,
+        short_name: contact.shortName,
+        type: contact.type,
+        tax_type: contact.taxType,
+        currency: contact.currency,
         name: contact.name,
         institution_code: contact.institutionCode
     }

@@ -7,6 +7,12 @@ export interface ContactEntity extends Entity {
     email: string
     phone: string
     address: string
+    'currency',
+    'tax_type',
+    'short_name',
+    'title',
+    'work_phone',
+    'type'
 }
 */
 
@@ -23,6 +29,14 @@ export async function up(knex: Knex): Promise<any> {
         t.string('email').notNullable()
         t.string('phone')
         t.string('address')
+
+        t.string('currency')
+        t.string('type')
+        t.string('work_phone')
+        t.string('title')
+        t.string('short_name')
+        t.string('tax_type')
+
         t.uuid('institution_code').references('id').inTable('institutions')
             .notNullable()
         t.timestamp('created_at').defaultTo(knex.fn.now())
