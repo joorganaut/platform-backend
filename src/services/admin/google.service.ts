@@ -10,13 +10,12 @@ import axios from 'axios'
 export const getProfile = async (institutionCode: string, user: User) => {
     const newUser = await createUser(institutionCode, user)
     clientServer.set('onlineUser', { id: newUser.id })
-    await getContacts(user)
     return { ...user, ...newUser }
 }
 
-export const getContacts = async (user: User) => {
+export const getContacts = async (accessToken: string) => {
     const result = []
-    const contacts_url = 'https://people.googleapis.com/v1/people/me/connections?pageSize=2000&personFields=emailAddresses,names,phoneNumbers&access_token=' + user?.accessToken
+    const contacts_url = 'https://people.googleapis.com/v1/people/me/connections?pageSize=2000&personFields=emailAddresses,names,phoneNumbers&access_token=' + accessToken
     let response = await axios.get(contacts_url)
     result.push(...response.data?.connections?.map((x: any) => {
         const client: Contact = {
