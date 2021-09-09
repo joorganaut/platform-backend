@@ -15,7 +15,9 @@ const columns = [
     'short_name',
     'title',
     'work_phone',
-    'type'
+    'type',
+    'first_name',
+    'last_name'
 ]
 
 export const fetchContacts = async (institutionCode: string, params?: PagingParams): Promise<ContactEntity[] | any> => {
@@ -27,7 +29,8 @@ export const fetchContacts = async (institutionCode: string, params?: PagingPara
         params.data = result
         return params
     }
-    return await db<ContactEntity>(TABLE_NAME).whereNull('deleted_at').where('institution_code', institutionCode).select(columns)
+    const result = await db<ContactEntity>(TABLE_NAME).whereNull('deleted_at').where('institution_code', institutionCode).select(columns)
+    return result
 }
 
 export const fetchContactById = async (ContactId: string, institutionCode: string): Promise<ContactEntity> => await db<ContactEntity>(TABLE_NAME).whereNull('deleted_at').where('id', ContactId).where('institution_code', institutionCode).first(columns)
@@ -48,3 +51,10 @@ export const deleteContact = async (ContactId: string, institutionCode: string):
     .where('id', ContactId)
     .where('institution_code', institutionCode)
     .update({ updated_at: db.raw('now()'), deleted_at: db.raw('now()') }, columns)
+
+
+export const saveBulkContacts = async (contacts: ContactEntity[]) => {
+    let result: any = null
+    result = await db<ContactEntity>(TABLE_NAME).insert(contacts)
+    return result
+}

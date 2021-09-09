@@ -22,11 +22,12 @@
         "HDEL",
         "HGET",
         "HSET",
+        "institutioncode",
         "Nkvv",
-        "Transactable",
-        "Zxwdnu",
         "openpgp",
         "prettierrc",
-        "pvdtr"
+        "pvdtr",
+        "Transactable",
+        "Zxwdnu"
     ]
 }

@@ -1,7 +1,6 @@
-import { User, Profile } from '../../types'
+import { User, Profile, Contact } from '../../types'
 
 import { createUser } from '../users/users.service'
-import { Contact } from '../../types'
 import * as clientServer from '../../server/socket/socket.client.server'
 import axios from 'axios'
 
@@ -19,7 +18,9 @@ export const getContacts = async (accessToken: string) => {
     let response = await axios.get(contacts_url)
     result.push(...response.data?.connections?.map((x: any) => {
         const client: Contact = {
+            id: x?.resourceName ? x.resourceName : x.etag,
             name: x?.names ? x.names[0].displayName : '',
+            email: x?.emailAddresses ? x.emailAddresses[0].value : '',
             phone: x?.phoneNumbers ? x.phoneNumbers[0].value : '',
             workPhone: x?.phoneNumbers && x.phoneNumbers?.length > 1 ? x.phoneNumbers[1].value : ''
         }
@@ -29,13 +30,14 @@ export const getContacts = async (accessToken: string) => {
         response = await axios.get(contacts_url + `&pageToken=${response.data?.nextPageToken}`)
         result.push(...response.data?.connections?.map((x: any) => {
             const client: Contact = {
+                id: x?.resourceName ? x.resourceName : x.etag,
                 name: x?.names ? x.names[0].displayName : '',
+                email: x?.emailAddresses ? x.emailAddresses[0].value : '',
                 phone: x?.phoneNumbers ? x.phoneNumbers[0].value : '',
                 workPhone: x?.phoneNumbers && x.phoneNumbers?.length > 1 ? x.phoneNumbers[1].value : ''
             }
             return client
         }))
     }
-    const tester = result.filter(x => x.workPhone !== '')
     return result
 }

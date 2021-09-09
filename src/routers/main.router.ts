@@ -10,6 +10,7 @@ import PreferenceRouter from './users/preferences.router'
 import ApplicationMetaDataRouter from './admin/application.metadata.router'
 import OnboardingQuestionRouter from './admin/onboarding.question.router'
 import MessageRouter from './messages/messages.router'
+import ContactsRouter from './contacts/contacts.router'
 import { authMiddleware } from '../middleware'
 
 
@@ -58,6 +59,8 @@ router
     .use(OnboardingQuestionRouter.allowedMethods())
     .use(MessageRouter.routes())
     .use(MessageRouter.allowedMethods())
+    .use(ContactsRouter.routes())
+    .use(ContactsRouter.allowedMethods())
 
 
 export default router

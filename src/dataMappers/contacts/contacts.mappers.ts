@@ -33,11 +33,13 @@ export const mapContactFromContactEntity = (entity: ContactEntity): Contact => {
         taxType: entity.tax_type,
         currency: entity.currency,
         name: entity.name,
+        firstName: entity.first_name,
+        lastName: entity.last_name,
         institutionCode: entity.institution_code
     }
 }
 
-export const mapContactEntityFromContact = (contact: Contact): ContactEntity => {
+export const mapContactEntityFromContact = (contact: Contact, institutionCode: string): ContactEntity => {
 
     return {
         business_name: contact.businessName,
@@ -51,6 +53,8 @@ export const mapContactEntityFromContact = (contact: Contact): ContactEntity => 
         tax_type: contact.taxType,
         currency: contact.currency,
         name: contact.name,
-        institution_code: contact.institutionCode
+        first_name: contact.firstName,
+        last_name: contact.lastName,
+        institution_code: institutionCode
     }
 }

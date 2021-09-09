@@ -25,6 +25,8 @@ export async function up(knex: Knex): Promise<any> {
             .unique()
             .defaultTo(knex.raw('uuid_generate_v4()'))
         t.string('name')
+        t.string('first_name')
+        t.string('last_name')
         t.string('business_name')
         t.string('email').notNullable()
         t.string('phone')
