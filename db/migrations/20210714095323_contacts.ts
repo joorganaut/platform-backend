@@ -38,6 +38,7 @@ export async function up(knex: Knex): Promise<any> {
         t.string('title')
         t.string('short_name')
         t.string('tax_type')
+        t.string('website')
 
         t.uuid('institution_code').references('id').inTable('institutions')
             .notNullable()

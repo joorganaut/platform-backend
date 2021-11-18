@@ -16,6 +16,7 @@ export interface Contact extends BusinessObject {
     type?: string
     currency?: string
     taxType?: string
+    website?: string
 }
 
 export interface ContactEntity extends Entity {
@@ -32,4 +33,6 @@ export interface ContactEntity extends Entity {
     type?: string
     currency?: string
     tax_type?: string
+    website?: string
+
 }

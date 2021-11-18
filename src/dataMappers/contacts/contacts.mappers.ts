@@ -35,7 +35,8 @@ export const mapContactFromContactEntity = (entity: ContactEntity): Contact => {
         name: entity.name,
         firstName: entity.first_name,
         lastName: entity.last_name,
-        institutionCode: entity.institution_code
+        institutionCode: entity.institution_code,
+        website: entity.website
     }
 }
 
@@ -55,6 +56,7 @@ export const mapContactEntityFromContact = (contact: Contact, institutionCode: s
         name: contact.name,
         first_name: contact.firstName,
         last_name: contact.lastName,
-        institution_code: institutionCode
+        institution_code: institutionCode,
+        website: contact.website
     }
 }
