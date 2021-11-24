@@ -2,9 +2,6 @@ import { Contact, ContactEntity } from '../../types'
 import * as repository from '../../repositories/contacts/contacts.repository'
 import { mapContactFromContactEntity, mapContactEntityFromContact } from '../../dataMappers/contacts/contacts.mappers'
 import { getContacts } from '../admin/google.service'
-import fs from 'fs'
-import csv from 'csv-parser'
-
 
 export const fetchGoogleContacts = async (accessToken: string): Promise<Contact[]> => {
     return await getContacts(accessToken)
@@ -22,15 +19,15 @@ export const saveBulkContacts = async (contacts: Contact[], institutionCode: str
     return rowCount
 }
 
-export const parseCSVFile = async (binary: any) => {
-    const results: any[] = []
-    const file = binary
-
-    return results
-}
-
 export const saveContact = async (contact: Contact, institutionCode: string) => {
     const contactEntity: ContactEntity = mapContactEntityFromContact(contact, institutionCode)
     const response = await repository.createContact(contactEntity)
+    return response
+}
+
+export const updateContact = async (contactId: string, contact: Contact, institutionCode: string) => {
+    const contactEntity: ContactEntity = mapContactEntityFromContact(contact, institutionCode)
+    const [db_response] = await repository.updateContact(contactId, contactEntity, institutionCode)
+    const response = mapContactFromContactEntity(db_response)
     return response
 }

@@ -38,8 +38,11 @@ export const saveContact = async (ctx: Context) => {
     const result: Contact[] = await service.saveContact(client, institutioncode as string)
     ctx.body = result
 }
-export const updateContact = (ctx: Context) => {
-
+export const updateContact = async (ctx: Context) => {
+    const { institutioncode } = ctx.headers
+    const client = ctx.request.body
+    const result: Contact[] = await service.saveContact(client, institutioncode as string)
+    ctx.body = result
 }
 export const deleteContact = (ctx: Context) => {
 
