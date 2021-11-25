@@ -31,3 +31,9 @@ export const updateContact = async (contactId: string, contact: Contact, institu
     const response = mapContactFromContactEntity(db_response)
     return response
 }
+
+export const deleteContact = async (contactId: string, institutionCode: string) => {
+    const [db_response] = await repository.deleteContact(contactId, institutionCode)
+    const response = mapContactFromContactEntity(db_response)
+    return response
+}

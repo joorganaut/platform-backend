@@ -45,8 +45,11 @@ export const updateContact = async (ctx: Context) => {
     const result: Contact = await service.updateContact(id, client, institutioncode as string)
     ctx.body = result
 }
-export const deleteContact = (ctx: Context) => {
-
+export const deleteContact = async (ctx: Context) => {
+    const { institutioncode } = ctx.headers
+    const { id } = ctx.params
+    const result: Contact = await service.deleteContact(id, institutioncode as string)
+    ctx.body = result
 }
 
 export const getContacts = async (ctx: Context) => {
