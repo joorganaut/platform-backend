@@ -22,6 +22,7 @@ export const mapContactFromContactEntity = (entity: ContactEntity): Contact => {
 
     return {
         id: entity.id,
+        image: entity.image,
         businessName: entity.business_name,
         email: entity.email,
         phone: entity.phone,
@@ -44,6 +45,7 @@ export const mapContactEntityFromContact = (contact: Contact, institutionCode: s
 
     return {
         business_name: contact.businessName,
+        image: contact.image,
         email: contact.email,
         phone: contact.phone,
         address: contact.address,

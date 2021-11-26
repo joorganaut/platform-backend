@@ -18,7 +18,8 @@ const columns = [
     'type',
     'first_name',
     'last_name',
-    'website'
+    'website',
+    'image'
 ]
 
 export const fetchContacts = async (institutionCode: string, params?: PagingParams): Promise<ContactEntity[] | any> => {

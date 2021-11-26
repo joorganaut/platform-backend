@@ -3,6 +3,7 @@ import { BusinessObject, Entity } from "../../types/admin/default.types"
 
 
 export interface Contact extends BusinessObject {
+    image?: string
     name?: string
     firstName?: string
     lastName?: string
@@ -20,6 +21,7 @@ export interface Contact extends BusinessObject {
 }
 
 export interface ContactEntity extends Entity {
+    image?: string
     name?: string
     first_name?: string
     last_name?: string
