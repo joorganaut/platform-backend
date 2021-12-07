@@ -9,8 +9,11 @@ const columns = [
     'start_date',
     'end_date',
     'description',
-    'status'
-
+    'status',
+    'items',
+    'budget',
+    'client_id',
+    'currency',
 
 ]
 

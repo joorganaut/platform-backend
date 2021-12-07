@@ -11,6 +11,7 @@ import ApplicationMetaDataRouter from './admin/application.metadata.router'
 import OnboardingQuestionRouter from './admin/onboarding.question.router'
 import MessageRouter from './messages/messages.router'
 import ContactsRouter from './contacts/contacts.router'
+import ProjectsRouter from './projects/projects.router'
 import { authMiddleware } from '../middleware'
 
 
@@ -61,6 +62,8 @@ router
     .use(MessageRouter.allowedMethods())
     .use(ContactsRouter.routes())
     .use(ContactsRouter.allowedMethods())
+    .use(ProjectsRouter.routes())
+    .use(ProjectsRouter.allowedMethods())
 
 
 export default router
