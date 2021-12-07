@@ -7,6 +7,13 @@ export const fetchGoogleContacts = async (accessToken: string): Promise<Contact[
     return await getContacts(accessToken)
 }
 
+
+export const fetchContact = async (contactId: string, institutionCode: string): Promise<Contact> => {
+    const entity: ContactEntity = await repository.fetchContactById(contactId, institutionCode)
+    const result = mapContactFromContactEntity(entity)
+    return result
+}
+
 export const fetchAllContacts = async (institutionCode: string): Promise<Contact[]> => {
     const contactEntities: ContactEntity[] = await repository.fetchContacts(institutionCode)
     const result = contactEntities.map(entity => mapContactFromContactEntity(entity))

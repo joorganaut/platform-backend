@@ -28,8 +28,11 @@ export const saveBulkContacts = async (ctx: Context) => {
     ctx.body = service.saveBulkContacts(ctx.request.body, institutioncode as string)
 }
 
-export const getContact = (ctx: Context) => {
-
+export const getContact = async (ctx: Context) => {
+    const { institutioncode } = ctx.headers
+    const { id } = ctx.params
+    const result = await service.fetchContact(id, institutioncode as string)
+    ctx.body = result
 }
 
 export const saveContact = async (ctx: Context) => {
