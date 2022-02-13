@@ -31,7 +31,7 @@ const columns = [
 
 export const fetchUsers = async (institutionCode: string, params?: PagingParams): Promise<UserEntity[] | any> => {
     if (params) {
-        const offSet = ((params.page as number < 1 ? 1 : params.page) - 1) * params.pageSize
+        const offSet = ((params.page < 1 ? 1 : params.page) - 1) * params.pageSize
         const [count] = await db<UserEntity>(TABLE_NAME).count('id').whereNull('deleted_at').where('institution_code', institutionCode)
         params.totalCount = count['count'] as number
         const result = await db<UserEntity>(TABLE_NAME).whereNull('deleted_at').where('institution_code', institutionCode).offset(offSet).limit(params.pageSize).select(columns).orderBy(params.sort, params.dir)

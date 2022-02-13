@@ -43,7 +43,7 @@ export const authMiddleware = async (ctx: Context, next: Next) => {
             if (!user) {
                 throw new UnauthorizedError(__filename, 'Unable to retrieve user')
             }
-        } catch (err) {
+        } catch (err: any) {
             throw new UnauthorizedError(__filename, err.message)
         }
     }
