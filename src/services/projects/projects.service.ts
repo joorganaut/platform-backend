@@ -1,6 +1,6 @@
 import { Project, ProjectEntity } from '../../types'
-import * as repository from '../../repositories/Projects/Projects.repository'
-import { mapProjectFromProjectEntity, mapProjectEntityFromProject } from '../../dataMappers/Projects/Projects.mappers'
+import * as repository from '../../repositories/Projects/projects.repository'
+import { mapProjectFromProjectEntity, mapProjectEntityFromProject } from '../../dataMappers/Projects/projects.mappers'
 
 
 export const fetchAllProjects = async (institutionCode: string): Promise<Project[]> => {
