@@ -10,12 +10,15 @@ const columns = [
     'status',
     'description',
     'is_recurring',
-    'interval'
+    'interval',
+    'user',
+    'startDate',
+    'endDate'
 ]
 
 export const fetchNotes = async (institutionCode: string, params?: PagingParams): Promise<NoteEntity[] | any> => {
     if (params) {
-        const offSet = ((params.page as number < 1 ? 1 : params.page) - 1) * params.pageSize
+        const offSet = ((params.page < 1 ? 1 : params.page) - 1) * params.pageSize
         const [count] = await db<NoteEntity>(TABLE_NAME).count('id').whereNull('deleted_at').where('institution_code', institutionCode)
         params.totalCount = count['count'] as number
         const result = await db<NoteEntity>(TABLE_NAME).whereNull('deleted_at').where('institution_code', institutionCode).offset(offSet).limit(params.pageSize).select(columns).orderBy(params.sort, params.dir)

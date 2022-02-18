@@ -1,3 +1,4 @@
+import { NoteStatus } from "types";
 import { BusinessObject, Entity } from "../../types/admin/default.types"
 
 export enum ProjectStatus {
@@ -7,18 +8,22 @@ export enum ProjectStatus {
     completed
 }
 
-export enum ProjectItemStatus {
-    todo,
-    inProgress,
-    clocked,
-    completed
-}
+// export enum ProjectItemStatus {
+//     todo,
+//     started,
+//     completed,
+//     cancelled,
+//     blocked
+// }
 
 export interface ProjectItem {
+    id?: string
+    name?: string
     user?: string
+    userId?: string
     startDate?: Date
     endDate?: Date
-    status?: ProjectItemStatus
+    status?: NoteStatus
 }
 
 export interface Project extends BusinessObject {

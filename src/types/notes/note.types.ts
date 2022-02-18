@@ -8,26 +8,33 @@ export enum NoteType {
 }
 
 export enum NoteStatus {
+    todo,
     started,
-    running,
-    ended,
-    cancelled
+    completed,
+    cancelled,
+    blocked
 }
 
 export interface Note extends BusinessObject {
     name: string
     type: NoteType
-    status: NoteStatus
+    status?: NoteStatus
     description: string
     isRecurring: boolean
+    user?: string
+    startDate?: Date
+    endDate?: Date
     interval: any
 }
 
 export interface NoteEntity extends Entity {
     name: string
     type: NoteType
-    status: NoteStatus
+    status?: NoteStatus
     description: string
     is_recurring: boolean
     interval: any
+    user?: string
+    startDate?: Date
+    endDate?: Date
 }

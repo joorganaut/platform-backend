@@ -8,6 +8,11 @@ export interface NoteEntity extends Entity {
     description: string
     is_recurring: boolean
     interval: any
+
+    id?: string
+    user?: string
+    startDate?: Date
+    endDate?: Date
 }
 */
 
@@ -33,6 +38,10 @@ export async function up(knex: Knex): Promise<any> {
         t.string('description')
         t.boolean('is_recurring')
         t.integer('interval')
+        t.uuid('user').references('id').inTable('users')
+        t.dateTime("startDate")
+        t.dateTime("endDate")
+
     })
 }
 

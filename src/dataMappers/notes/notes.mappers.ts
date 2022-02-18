@@ -1,4 +1,4 @@
-import { Note, NoteEntity } from '../../types'
+import { Note, NoteEntity, NoteType, ProjectItem } from '../../types'
 
 /*
 export interface Note extends BusinessObject {
@@ -7,6 +7,10 @@ export interface Note extends BusinessObject {
     status: NoteStatus
     description: string
     isRecurring: boolean
+    interval: any
+    user?: string
+    startDate?: Date
+    endDate?: Date
     interval: any
 }
 
@@ -30,12 +34,14 @@ export const mapNoteFromNoteEntity = (entity: NoteEntity): Note => {
         description: entity.description,
         isRecurring: entity.is_recurring,
         interval: entity.interval,
-        institutionCode: entity.institution_code
-
+        institutionCode: entity.institution_code,
+        user: entity.user,
+        startDate: entity.startDate,
+        endDate: entity.endDate
     }
 }
 
-export const mapNoteEntityFromNote = (Note: Note): NoteEntity => {
+export const mapNoteEntityFromNote = (Note: Note, institutionCode: string): NoteEntity => {
 
     return {
         name: Note.name,
@@ -44,6 +50,39 @@ export const mapNoteEntityFromNote = (Note: Note): NoteEntity => {
         description: Note.description,
         is_recurring: Note.isRecurring,
         interval: Note.interval,
-        institution_code: Note.institutionCode
+        institution_code: institutionCode,
+        user: Note.user,
+        startDate: Note.startDate,
+        endDate: Note.endDate
+    }
+}
+
+export const mapNoteFromProjectItem = (item: ProjectItem, params: { name: string, description: string, institution_code: string }): Note => {
+    return {
+        name: item.name as string,
+        type: NoteType.task,
+        status: item?.status,
+        description: params.description,
+        isRecurring: false,
+        interval: 0,
+        institutionCode: params.institution_code,
+        user: item.userId,
+        startDate: item.startDate,
+        endDate: item.endDate
+    }
+}
+
+export const mapNoteEntityFromProjectItem = (item: ProjectItem, params: { name: string, description: string, institution_code: string }): NoteEntity => {
+    return {
+        name: item.name as string,
+        type: NoteType.task,
+        status: item?.status,
+        description: params.description,
+        is_recurring: false,
+        interval: 0,
+        institution_code: params.institution_code,
+        user: item.userId,
+        startDate: item.startDate,
+        endDate: item.endDate
     }
 }
