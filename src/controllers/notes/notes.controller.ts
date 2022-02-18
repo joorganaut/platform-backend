@@ -1,11 +1,13 @@
 import { Context } from 'koa'
-import { Note } from '../../types'
+import { Note, NoteTypeFilter } from '../../types'
 import * as service from '../../services/notes/notes.service'
 
 
 export const getAllNotes = async (ctx: Context) => {
     const { institutioncode } = ctx.headers
-    const result = await service.fetchAllNotes(institutioncode as string)
+    const filterQuery = ctx.query
+    const filter = filterQuery?.filter as NoteTypeFilter
+    const result = await service.fetchAllNotes(institutioncode as string, filter)
     ctx.body = result
 }
 

@@ -4,8 +4,20 @@ export enum NoteType {
     meeting,
     reminder,
     event,
-    task
+    task,
+    project,
+    expense,
+    payment,
+    appointment
 }
+export type NoteTypeFilter = 'meeting' |
+    'reminder' |
+    'event' |
+    'task' |
+    'project' |
+    'expense' |
+    'payment' |
+    'appointment'
 
 export enum NoteStatus {
     todo,

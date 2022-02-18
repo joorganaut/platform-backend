@@ -1,10 +1,11 @@
-import { Note, NoteEntity } from '../../types'
+import { Note, NoteEntity, NoteType, NoteTypeFilter } from '../../types'
 import * as repository from '../../repositories/notes/notes.repository'
 import { mapNoteFromNoteEntity, mapNoteEntityFromNote } from '../../dataMappers/notes/notes.mappers'
 
 
-export const fetchAllNotes = async (institutionCode: string): Promise<Note[]> => {
-    const NoteEntities: NoteEntity[] = await repository.fetchNotes(institutionCode)
+export const fetchAllNotes = async (institutionCode: string, filter: NoteTypeFilter): Promise<Note[]> => {
+
+    const NoteEntities: NoteEntity[] = await repository.fetchNotes(institutionCode, undefined, filter)
     const result = NoteEntities.map(entity => mapNoteFromNoteEntity(entity))
     return result
 }

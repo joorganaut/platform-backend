@@ -1,5 +1,5 @@
 import { db } from '../../server/db'
-import { NoteEntity, NoteType, PagingParams } from '../../types'
+import { NoteEntity, NoteType, NoteTypeFilter, PagingParams } from '../../types'
 
 const TABLE_NAME = 'notes'
 
@@ -16,14 +16,24 @@ const columns = [
     'endDate'
 ]
 
-export const fetchNotes = async (institutionCode: string, params?: PagingParams): Promise<NoteEntity[] | any> => {
+export const fetchNotes = async (institutionCode: string, params?: PagingParams, filter?: NoteTypeFilter): Promise<NoteEntity[] | any> => {
     if (params) {
         const offSet = ((params.page < 1 ? 1 : params.page) - 1) * params.pageSize
+        if (filter) {
+            const [count] = await db<NoteEntity>(TABLE_NAME).count('id').whereNull('deleted_at').where('type', NoteType[filter]).where('institution_code', institutionCode)
+            params.totalCount = count['count'] as number
+            const result = await db<NoteEntity>(TABLE_NAME).whereNull('deleted_at').where('type', NoteType[filter]).where('institution_code', institutionCode).offset(offSet).limit(params.pageSize).select(columns).orderBy(params.sort, params.dir)
+            params.data = result
+            return params
+        }
         const [count] = await db<NoteEntity>(TABLE_NAME).count('id').whereNull('deleted_at').where('institution_code', institutionCode)
         params.totalCount = count['count'] as number
         const result = await db<NoteEntity>(TABLE_NAME).whereNull('deleted_at').where('institution_code', institutionCode).offset(offSet).limit(params.pageSize).select(columns).orderBy(params.sort, params.dir)
         params.data = result
         return params
+    }
+    if (filter) {
+        return await db<NoteEntity>(TABLE_NAME).whereNull('deleted_at').where('type', NoteType[filter]).where('institution_code', institutionCode).select(columns)
     }
     return await db<NoteEntity>(TABLE_NAME).whereNull('deleted_at').where('institution_code', institutionCode).select(columns)
 }
