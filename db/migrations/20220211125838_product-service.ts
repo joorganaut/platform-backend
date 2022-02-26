@@ -12,7 +12,7 @@ export async function up(knex: Knex): Promise<any> {
         t.string('name')
         t.string('description')
         t.boolean('active')
-        t.decimal('cost')
+        t.decimal('cost', 14, 2)
         t.boolean('taxable')
         t.text('image')
         t.string('tags')

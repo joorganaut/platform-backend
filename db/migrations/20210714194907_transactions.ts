@@ -29,7 +29,7 @@ export async function up(knex: Knex): Promise<any> {
         /**Parent Properties end */
 
         t.uuid('account').references('id').inTable('accounts').notNullable()
-        t.decimal('amount', 10, 2)
+        t.decimal('amount', 14, 2)
         t.string('narration')
         t.string('transaction_ref')
         t.string('trace_id')
