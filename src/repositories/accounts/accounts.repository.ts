@@ -52,3 +52,5 @@ export const deleteAccount = async (accountId: string, institutionCode: string):
     .where('id', accountId)
     .where('institution_code', institutionCode)
     .update({ updated_at: db.raw('now()'), deleted_at: db.raw('now()') }, columns)
+
+export const createBulkAccounts = async (accounts: AccountEntity[]): Promise<AccountEntity[]> => await db<AccountEntity[]>(TABLE_NAME).insert(accounts)

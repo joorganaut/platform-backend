@@ -1,6 +1,7 @@
 import { Profile, User, UserEntity, PagingParams, UploadFile } from "../../types"
 import * as usersRepository from '../../repositories/users/users.repository'
 import * as institutionRepository from '../../repositories/admin/institution.repository'
+import * as accountsService from '../accounts/accounts.service'
 import { mapUserFromUserEntity, mapUserEntityFromUser } from '../../dataMappers/users/users.mappers'
 import { BadRequestError, NotFoundError, UnauthorizedError } from "../../lib"
 import { Md5 } from 'ts-md5/dist/md5'
@@ -66,7 +67,7 @@ export const createUser = async (institutionCode: string, user: User): Promise<a
         //create new institution
         [institution] = await institutionRepository.createInstitution({})
         //create accounts
-
+        await accountsService.createDefaultAccounts(institution.id)
     }
 
 

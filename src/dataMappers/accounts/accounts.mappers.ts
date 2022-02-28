@@ -64,7 +64,7 @@ export const mapAccountFromAccountEntity = (entity: AccountEntity): Account => {
     }
 }
 
-export const mapAccountEntityFromAccount = (account: Account): AccountEntity => {
+export const mapAccountEntityFromAccount = (account: Account, institutionCode: string): AccountEntity => {
 
     return {
         account_number: account.accountNumber,
@@ -84,6 +84,6 @@ export const mapAccountEntityFromAccount = (account: Account): AccountEntity => 
 
         name: account.name,
 
-        institution_code: account.institutionCode
+        institution_code: institutionCode
     }
 }
