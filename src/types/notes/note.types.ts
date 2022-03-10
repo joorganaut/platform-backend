@@ -50,3 +50,14 @@ export interface NoteEntity extends Entity {
     startDate?: Date
     endDate?: Date
 }
+
+export interface Calendar {
+    startTime: Date
+    endTime: Date
+    summary: string
+    description: string
+    location: string
+    url: string
+    name: string | string[]
+    email: string
+}

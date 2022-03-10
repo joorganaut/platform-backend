@@ -69,7 +69,7 @@ export const getTodaysDate = async (ctx: Context) => {
 }
 
 export const getInstitution = async (ctx: Context) => {
-    const { institutionCode } = ctx.params
-    const result = await institutionService.findInstitutionById(institutionCode as string)
-    return result
+    const { id } = ctx.params
+    const result = await institutionService.findInstitutionById(id as string)
+    ctx.body = result
 }

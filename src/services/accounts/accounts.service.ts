@@ -1,5 +1,6 @@
 import { Account, AccountEntity, AccountStatus } from '../../types'
 import * as repository from '../../repositories/accounts/accounts.repository'
+import * as mailService from '../../services/messaging/mail.service'
 import { mapAccountFromAccountEntity, mapAccountEntityFromAccount } from '../../dataMappers/accounts/accounts.mappers'
 
 
@@ -30,6 +31,7 @@ export const saveAccount = async (Account: Account, institutionCode: string) => 
     const allAccounts = await fetchAllAccounts(institutionCode)
     AccountEntity.account_number = `${institutionCode}_${allAccounts.length + 1}`
     const [response] = await repository.createAccount(AccountEntity)
+    mailService.sendTestMail()
     return mapAccountFromAccountEntity(response)
 }
 

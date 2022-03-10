@@ -1,4 +1,4 @@
-import { Note, NoteEntity, NoteType, NoteTypeFilter } from '../../types'
+import { Note, NoteEntity, NoteTypeFilter } from '../../types'
 import * as repository from '../../repositories/notes/notes.repository'
 import { mapNoteFromNoteEntity, mapNoteEntityFromNote } from '../../dataMappers/notes/notes.mappers'
 
