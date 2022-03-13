@@ -15,6 +15,7 @@ import ProductServiceRouter from './product-services/product-services.router'
 import ProjectsRouter from './projects/projects.router'
 import NotesRouter from './notes/notes.router'
 import AccountsRouter from './accounts/accounts.router'
+import InvoicesRouter from './invoices/invoices.router'
 import { authMiddleware } from '../middleware'
 
 
@@ -73,5 +74,7 @@ router
     .use(NotesRouter.allowedMethods())
     .use(AccountsRouter.routes())
     .use(AccountsRouter.allowedMethods())
+    .use(InvoicesRouter.routes())
+    .use(InvoicesRouter.allowedMethods())
 
 export default router
